@@ -1,10 +1,14 @@
 package dona.protocol;
 
 import java.util.List;
+import java.util.Map;
 
+import dona.entity.ConnectionManager;
 import dona.entity.FIB;
 import dona.entity.Message;
 import dona.entity.PIT;
+import dona.handler.Handler;
+import dona.handler.HandlerFactory;
 import peersim.config.Configuration;
 import peersim.config.FastConfig;
 import peersim.core.Network;
@@ -21,11 +25,12 @@ public class Infrastructure extends SingleValueHolder implements EDProtocol{
 	public static String mode;
 	public static int path_num;
 	
-	public String name;
+	public PIT pit;
+	public FIB fib;
+	public Map contentStore;
+	public List neighbors;
 	
-	private PIT pit;
-	private FIB fib;
-	private List contentStore;
+	public ConnectionManager connectionManager;
 	
 	
 	public Infrastructure(String prefix) {
@@ -42,30 +47,9 @@ public class Infrastructure extends SingleValueHolder implements EDProtocol{
 		// drop the message with no requester
 		if ( message.getRequester() == -1 ) return;
 		
-		// handle query
-		if ( message.getMessageType().equals("QUE")){
-			
-		}
+		Handler handler = HandlerFactory.createHandler(message.getMessageType());
+		handler.handleMessage(node, protocolID, message);
 		
-		// handle acknowledge
-		if ( message.getMessageType().equals("ACK")){
-			
-		}
-		
-		// handle request
-		if ( message.getMessageType().equals("REQ")){
-			
-		}
-		
-		// handle data
-		if ( message.getMessageType().equals("DAT")){
-			
-		}
-		
-		// handle register
-		if ( message.getMessageType().equals("REG")){
-			
-		}
 	}
 	
 
