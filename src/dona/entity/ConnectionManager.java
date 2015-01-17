@@ -13,7 +13,8 @@ public class ConnectionManager {
 	
 	public void addSource(String file, String target){
 		if ( detail.containsKey(file) ){
-			
+			Connection connection = detail.get(file);
+			connection.addSource(target);
 		}
 		else {
 			Connection connection = new Connection();
