@@ -25,7 +25,7 @@ public class FIB {
 		return detail.containsKey(key);
 	}
 	
-	public Object put(String key, Object value){
+	public Object addItem(String key, Object value){
 		if ( !detail.containsKey(key) ){
 			List facelist = new ArrayList();
 			facelist.add(value);

@@ -1,13 +1,16 @@
 package dona.entity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Message {
 	
 	private String messageType;
 	private int requester;
 	private int dataSize;
 	private String dataName;
-	private String chunkName;
 	private int TTL;
+	private Map additionalInfo;
 	
 
 	public Message(String type, int request, String name) {
@@ -15,13 +18,7 @@ public class Message {
 		this.messageType = type;
 		this.requester = request;
 		this.dataName = name;
-	}
-	
-	public Message(String type, int request, String name, String chunkname){
-		this.messageType = type;
-		this.requester = request;
-		this.dataName = name;
-		this.chunkName = chunkname;
+		this.additionalInfo = new HashMap<String,Object>();
 	}
 	
 	public int getDataSize(){
@@ -36,12 +33,16 @@ public class Message {
 		return dataName;
 	}
 	
-	public String getChunkName(){
-		return chunkName;
-	}
-	
 	public int getRequester(){
 		return requester;
+	}
+	
+	public Object getInfo(String key){
+		return additionalInfo.get(key);
+	}
+	
+	public void insertInfo(String key, Object value){
+		additionalInfo.put(key, value);
 	}
 	
 	public void setTTL(int ttl){
