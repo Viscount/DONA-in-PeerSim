@@ -3,7 +3,7 @@ package dona.entity;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Message {
+public class Message implements Cloneable{
 	
 	private String messageType;
 	private int requester;
@@ -51,5 +51,11 @@ public class Message {
 	
 	public int getTTL(){
 		return TTL;
+	}
+	
+	public Message clone() throws CloneNotSupportedException{
+		Message mess = (Message) super.clone();
+		mess.additionalInfo.putAll(additionalInfo);
+		return mess;
 	}
 }

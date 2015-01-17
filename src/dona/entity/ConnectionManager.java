@@ -1,6 +1,7 @@
 package dona.entity;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ConnectionManager {
@@ -11,7 +12,7 @@ public class ConnectionManager {
 		detail = new HashMap();
 	}
 	
-	public void addSource(String file, String target){
+	public void addSource(String file, int target){
 		if ( detail.containsKey(file) ){
 			Connection connection = detail.get(file);
 			connection.addSource(target);
@@ -21,6 +22,18 @@ public class ConnectionManager {
 			connection.addSource(target);
 			detail.put(file, connection);
 		}
+	}
+	
+	public List getAvailableSource(String file){
+		return detail.get(file).getAvailableSource();
+	}
+	
+	public int getActiveNum(String file){
+		return detail.get(file).getActiveNum();
+	}
+	
+	public void activate(String file){
+		detail.get(file).activate();
 	}
 	
 	public int getNextIndex(String file){
