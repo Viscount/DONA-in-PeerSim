@@ -28,10 +28,10 @@ public class QUEhandler extends Handler{
 		}
 		else {
 			if (inf.pit.containsKey(message.getDataName())){
-				inf.pit.addFace(message.getDataName(), message.getRequester());
+				inf.pit.addFace(message.getDataName(), message.getRequester(), inf.pending_time);
 			}
 			else {
-				inf.pit.addEntry(message.getDataName(), message.getRequester());
+				inf.pit.addEntry(message.getDataName(), message.getRequester(), inf.pending_time);
 				if (inf.fib.containsKey(message.getDataName())){
 					// hit in fib, multicast to all source
 					List facelist = inf.fib.getNextHop(message.getDataName());

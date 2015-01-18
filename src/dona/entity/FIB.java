@@ -46,6 +46,7 @@ public class FIB {
 			if (!flag){
 				SourceInfo sourceInfo = new SourceInfo(source,face);
 				facelist.add(sourceInfo);
+				detail.put(name, facelist);
 				return;
 			}
 			return;

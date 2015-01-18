@@ -33,24 +33,63 @@ public class PIT {
 		return detail.entrySet();
 	}
 	
-	public void addFace(String name, int nodeID){
+	public void addFace(String name, int nodeID, int times){
 		if (!detail.containsKey(name)) return;
 		List facelist = (List) detail.get(name);
-		if ( facelist.contains(nodeID) ) return;
-		else{
-			facelist.add(nodeID);
+		boolean flag = false;
+		for (int i=0; i<facelist.size(); i++){
+			FaceInterest fInt = (FaceInterest) facelist.get(i);
+			if (fInt.faceID == nodeID){
+				flag = true;
+				break;
+			}
+		}
+		if (!flag){
+			FaceInterest fInt = new FaceInterest(nodeID,times);
+			facelist.add(fInt);
 			detail.put(name, facelist);
+			return;
+		}
+		return;
+	}
+	
+	public void addEntry(String name, int nodeID, int times){
+		if ( !detail.containsKey(name) ){
+			List facelist = new ArrayList();
+			FaceInterest fInt = new FaceInterest(nodeID,times);
+			facelist.add(fInt);
+			detail.put(name, facelist);
+			return;
 		}
 	}
 	
-	public void addEntry(String name, int nodeID){
-		if (detail.containsKey(name)) addFace(name,nodeID);
-		else {
-			List facelist = new ArrayList();
-			facelist.add(nodeID);
-			detail.put(name, facelist);
-		}
-	}
+//	public void addItem(String name, int nodeID, int times){
+//		if ( !detail.containsKey(name) ){
+//			List facelist = new ArrayList();
+//			FaceInterest fInt = new FaceInterest(nodeID,times);
+//			facelist.add(fInt);
+//			detail.put(name, facelist);
+//			return;
+//		}
+//		else{
+//			List facelist = (List) detail.get(name);
+//			boolean flag = false;
+//			for (int i=0; i<facelist.size(); i++){
+//				FaceInterest fInt = (FaceInterest) facelist.get(i);
+//				if (fInt.faceID == nodeID){
+//					flag = true;
+//					break;
+//				}
+//			}
+//			if (!flag){
+//				FaceInterest fInt = new FaceInterest(nodeID,times);
+//				facelist.add(fInt);
+//				detail.put(name, facelist);
+//				return;
+//			}
+//			return;
+//		}
+//	}
 	
 	public List getFace(String name){
 		if (!detail.containsKey(name)) return null;
@@ -58,8 +97,14 @@ public class PIT {
 		return facelist;
 	}
 	
-	public void deleteEntry(String name){
-		if (detail.containsKey(name)) detail.remove(name);
+	public void deleteInvalidEntry(String name){
+		if (detail.containsKey(name)) {
+			List facelist = (List) detail.get(name);
+			for (int i=0; i<facelist.size(); i++){
+				if (((FaceInterest)facelist.get(i)).remain <= 0) facelist.remove(i);
+			}
+			if (facelist.size() == 0) detail.remove(name);
+		}
 	}
 
 }

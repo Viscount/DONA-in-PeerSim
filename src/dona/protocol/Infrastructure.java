@@ -21,9 +21,11 @@ public class Infrastructure extends SingleValueHolder implements EDProtocol{
 	
 	private static final String PAR_MODE = "mode";
 	private static final String PAR_PATH_NUM = "path_num";
+	private static final String PAR_PIT_PENDING_TIME = "pit_pending_time";
 	
 	public static String mode;
 	public static int path_num;
+	public static int pending_time;
 	
 	public PIT pit;
 	public FIB fib;
@@ -38,6 +40,7 @@ public class Infrastructure extends SingleValueHolder implements EDProtocol{
 		super(prefix);
 		mode = Configuration.getString(prefix+"."+PAR_MODE);
 		path_num = Configuration.getInt(prefix+"."+PAR_PATH_NUM);
+		pending_time = Configuration.getInt(prefix+"."+PAR_PIT_PENDING_TIME);
 	}
 
 	@Override
