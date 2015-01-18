@@ -17,13 +17,13 @@ public class ACKhandler extends Handler{
 		Infrastructure inf = (Infrastructure) node.getProtocol(protocolID);
 		
 		if ( inf.pit.containsKey(message.getDataName()) ){
-			// hit in PIT, forward process
-			inf.fib.addItem(message.getDataName(), message.getRequester());
+			// hit in PIT, forward to all query
+			inf.fib.addItem(message.getDataName(), (int) message.getInfo("SourceID"),message.getRequester());
 			List facelist = (List) inf.pit.get(message.getDataName());
 			for (int i=0; i<facelist.size(); i++){
 				int nexthop = (int) facelist.get(i);
 				try {
-					Message new_mess = message.clone();
+					Message new_mess = message.clone((int)node.getID());
 					((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
 					send(node, Network.get((int) facelist.get(i)), new_mess, protocolID);
 				} catch (CloneNotSupportedException e) {
@@ -35,12 +35,13 @@ public class ACKhandler extends Handler{
 		}
 		else {
 			// reach the requester
-			inf.connectionManager.addSource(message.getDataName(), message.getRequester());
+			inf.connectionManager.addSource(message.getDataName(), (int) message.getInfo("SourceID"));
 			if (inf.connectionManager.getActiveNum(message.getDataName()) < inf.path_num){
 				inf.connectionManager.activate(message.getDataName());
 				int nextIndex = inf.connectionManager.getNextIndex(message.getDataName());
-				Message req_message = new Message("REQ",(int)node.getID(),message.getDataName());
+				Message req_message = new Message("REQ",node.getIndex(),message.getDataName());
 				req_message.insertInfo("ChunkNo", nextIndex);
+				req_message.insertInfo("SourceID", message.getInfo("SourceID"));
 				((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
 				send(node, Network.get(message.getRequester()), req_message, protocolID);
 			}

@@ -14,10 +14,10 @@ public class REGhandler extends Handler{
 		// TODO Auto-generated method stub
 		Infrastructure inf = (Infrastructure) node.getProtocol(protocolID);
 		
-		inf.fib.addItem(message.getDataName(), message.getRequester());
+		inf.fib.addItem(message.getDataName(), (int) message.getInfo("SourceID"),message.getRequester());
 		if ( message.getTTL() > 0 ){
 			try {
-				Message reg_mess = message.clone();
+				Message reg_mess = message.clone(node.getIndex());
 				reg_mess.setTTL(message.getTTL()-1);
 				for (int i=0; i<inf.neighbors.size(); i++){
 					if ((int)inf.neighbors.get(i) != message.getRequester()){

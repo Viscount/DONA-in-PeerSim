@@ -21,20 +21,34 @@ public class FIB {
 	public FIB(){
 	}
 	
-	public boolean containsKey(Object key){
-		return detail.containsKey(key);
+	public boolean containsKey(String name){
+		return detail.containsKey(name);
 	}
 	
-	public Object addItem(String key, Object value){
-		if ( !detail.containsKey(key) ){
+	public void addItem(String name, int source, int face){
+		if ( !detail.containsKey(name) ){
 			List facelist = new ArrayList();
-			facelist.add(value);
-			return detail.put(key, facelist);
+			SourceInfo sourceInfo = new SourceInfo(source,face);
+			facelist.add(sourceInfo);
+			detail.put(name, facelist);
+			return;
 		}
 		else{
-			List facelist = detail.get(key);
-			facelist.add(value);
-			return detail.put(key, facelist);
+			List facelist = detail.get(name);
+			boolean flag = false;
+			for (int i=0; i<facelist.size(); i++){
+				SourceInfo sInfo = (SourceInfo) facelist.get(i);
+				if (sInfo.sourceID == source){
+					flag = true;
+					break;
+				}
+			}
+			if (!flag){
+				SourceInfo sourceInfo = new SourceInfo(source,face);
+				facelist.add(sourceInfo);
+				return;
+			}
+			return;
 		}
 	}
 	
@@ -47,6 +61,23 @@ public class FIB {
 	public List getNextHop(String name) {
 		// TODO Auto-generated method stub
 		return detail.get(name);
+	}
+	
+	public int getNextHop(String name, int sourceID){
+		if ( !detail.containsKey(name) ) return -1;
+		else {
+			List facelist = detail.get(name);
+			boolean flag = false;
+			for (int i=0; i<facelist.size(); i++){
+				SourceInfo sInfo = (SourceInfo) facelist.get(i);
+				if (sInfo.sourceID == sourceID){
+					flag = true;
+					return sInfo.faceID;
+				}
+			}
+			if (!flag) return -1;
+		}
+		return -1;
 	}
 	
 

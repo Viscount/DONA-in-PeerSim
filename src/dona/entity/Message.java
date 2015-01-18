@@ -53,8 +53,9 @@ public class Message implements Cloneable{
 		return TTL;
 	}
 	
-	public Message clone() throws CloneNotSupportedException{
+	public Message clone(int newRequester) throws CloneNotSupportedException{
 		Message mess = (Message) super.clone();
+		mess.requester = newRequester;
 		mess.additionalInfo.putAll(additionalInfo);
 		return mess;
 	}
