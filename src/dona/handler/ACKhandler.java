@@ -43,11 +43,16 @@ public class ACKhandler extends Handler{
 			if (inf.connectionManager.getActiveNum(message.getDataName()) < inf.path_num){
 				inf.connectionManager.activate(message.getDataName());
 				int nextIndex = inf.connectionManager.getNextIndex(message.getDataName());
-				Message req_message = new Message("REQ",node.getIndex(),message.getDataName());
-				req_message.insertInfo("ChunkNo", nextIndex);
-				req_message.insertInfo("SourceID", message.getInfo("SourceID"));
-				((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
-				send(node, Network.get(message.getRequester()), req_message, protocolID);
+				if ( nextIndex == -1 ){
+					// new source available but all REQ sent out
+				}
+				else{
+					Message req_message = new Message("REQ",node.getIndex(),message.getDataName());
+					req_message.insertInfo("ChunkNo", nextIndex);
+					req_message.insertInfo("SourceID", message.getInfo("SourceID"));
+					((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
+					send(node, Network.get(message.getRequester()), req_message, protocolID);
+				}
 			}
 		}
 	}
