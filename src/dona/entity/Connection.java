@@ -8,10 +8,16 @@ public class Connection {
 	private List availableSource;
 	private int nextChunkIndex;
 	private int activeNum;
+	private int chunkNum;
 	
 	public Connection(){
 		availableSource = new ArrayList();
 		nextChunkIndex = 0;
+		chunkNum = 0;
+	}
+	
+	public void setChunkNum(int num){
+		chunkNum = num;
 	}
 	
 	public List getAvailableSource(){
@@ -23,7 +29,10 @@ public class Connection {
 	}
 	
 	public int getNextChunkIndex(){
-		return nextChunkIndex;
+		int result = nextChunkIndex;
+		if ( result >= chunkNum ) return -1;
+		nextChunkIndex++;
+		return result;
 	}
 	
 	public int getActiveNum(){

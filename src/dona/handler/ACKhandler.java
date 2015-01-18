@@ -38,7 +38,8 @@ public class ACKhandler extends Handler{
 		else {
 			if ((int)message.getInfo("RequesterID") != node.getIndex()) return;
 			// reach the requester
-			inf.connectionManager.addSource(message.getDataName(), (int) message.getInfo("SourceID"));
+			inf.connectionManager.addSource(message.getDataName(), 
+					(int) message.getInfo("SourceID"), (int) message.getInfo("ChunkNum"));
 			if (inf.connectionManager.getActiveNum(message.getDataName()) < inf.path_num){
 				inf.connectionManager.activate(message.getDataName());
 				int nextIndex = inf.connectionManager.getNextIndex(message.getDataName());

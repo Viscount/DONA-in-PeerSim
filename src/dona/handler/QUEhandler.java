@@ -23,6 +23,7 @@ public class QUEhandler extends Handler{
 			Message ack_message = new Message("ACK",node.getIndex(),message.getDataName());
 			ack_message.insertInfo("ChunkNum", chunknum);
 			ack_message.insertInfo("SourceID", (int)node.getID());
+			ack_message.insertInfo("RequesterID", message.getInfo("RequesterID"));
 			((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
 			send(node, Network.get(message.getRequester()), ack_message, protocolID);
 		}

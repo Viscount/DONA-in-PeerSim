@@ -12,7 +12,7 @@ public class ConnectionManager {
 		detail = new HashMap();
 	}
 	
-	public void addSource(String file, int target){
+	public void addSource(String file, int target, int chunkNum){
 		if ( detail.containsKey(file) ){
 			Connection connection = detail.get(file);
 			connection.addSource(target);
@@ -20,6 +20,7 @@ public class ConnectionManager {
 		else {
 			Connection connection = new Connection();
 			connection.addSource(target);
+			connection.setChunkNum(chunkNum);
 			detail.put(file, connection);
 		}
 	}
