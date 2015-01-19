@@ -19,6 +19,7 @@ public class FIB {
 	public Map<String,List> detail;
 	
 	public FIB(){
+		detail = new HashMap<String,List>();
 	}
 	
 	public boolean containsKey(String name){

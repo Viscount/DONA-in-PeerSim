@@ -9,6 +9,7 @@ import peersim.transport.Transport;
 import dona.entity.FaceInterest;
 import dona.entity.Message;
 import dona.protocol.Infrastructure;
+import dona.util.Statistic;
 
 public class DAThandler extends Handler{
 
@@ -42,6 +43,14 @@ public class DAThandler extends Handler{
 				//  all REQ sent out, check if last DAT
 				if (inf.connectionManager.getChunkNum(dataName) <= inf.connectionManager.getReceivedNum(dataName)){
 					inf.connectionManager.deleteEntry(dataName);
+					Message reg_mess = new Message("REG",node.getIndex(),dataName);
+					reg_mess.insertInfo("SourceID", node.getIndex());
+					reg_mess.setTTL(Statistic.REG_TTL);
+					List neighbors = inf.neighbors;
+					for (int i=0; i<neighbors.size(); i++){
+						((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
+						send(node, Network.get((int) inf.neighbors.get(i)), reg_mess, protocolID);
+					}
 					return;
 				}
 			}
