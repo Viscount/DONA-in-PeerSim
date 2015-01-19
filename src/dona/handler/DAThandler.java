@@ -35,9 +35,15 @@ public class DAThandler extends Handler{
 		}
 		else {
 			if ((int)message.getInfo("RequesterID") != node.getIndex()) return;
-			int nextIndex = inf.connectionManager.getNextIndex(message.getDataName());
+			String dataName = message.getDataName();
+			inf.connectionManager.receive(dataName);
+			int nextIndex = inf.connectionManager.getNextIndex(dataName);
 			if ( nextIndex == -1 ){
-				//  all REQ sent out
+				//  all REQ sent out, check if last DAT
+				if (inf.connectionManager.getChunkNum(dataName) <= inf.connectionManager.getReceivedNum(dataName)){
+					inf.connectionManager.deleteEntry(dataName);
+					return;
+				}
 			}
 			else{
 				Message req_message = new Message("REQ",node.getIndex(),message.getDataName());

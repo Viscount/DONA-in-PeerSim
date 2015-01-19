@@ -16,12 +16,13 @@ public class ConnectionManager {
 		if ( detail.containsKey(file) ){
 			Connection connection = detail.get(file);
 			connection.addSource(target);
+			detail.put(file, connection);
 		}
 		else {
-			Connection connection = new Connection();
-			connection.addSource(target);
-			connection.setChunkNum(chunkNum);
-			detail.put(file, connection);
+//			Connection connection = new Connection();
+//			connection.addSource(target);
+//			connection.setChunkNum(chunkNum);
+//			detail.put(file, connection);
 		}
 	}
 	
@@ -37,8 +38,24 @@ public class ConnectionManager {
 		detail.get(file).activate();
 	}
 	
+	public void receive(String file){
+		detail.get(file).receive();
+	}
+	
+	public int getChunkNum(String file){
+		return detail.get(file).getChunkNum();
+	}
+	
+	public int getReceivedNum(String file){
+		return detail.get(file).getReceivedNum();
+	}
+	
 	public int getNextIndex(String file){
 		return detail.get(file).getNextChunkIndex();
+	}
+	
+	public void deleteEntry(String file){
+		detail.remove(file);
 	}
 
 }
