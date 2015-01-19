@@ -10,6 +10,7 @@ import dona.protocol.Infrastructure;
 import dona.util.Statistic;
 import peersim.config.Configuration;
 import peersim.config.FastConfig;
+import peersim.core.CommonState;
 import peersim.core.Control;
 import peersim.core.Linkable;
 import peersim.core.Network;
@@ -17,7 +18,7 @@ import peersim.core.Node;
 
 public class Initializer implements Control{
 	
-	private static String PAR_PROT_INF = "inf_protocol";
+	private static final String PAR_PROT_INF = "inf_protocol";
 	
 	private static int pid_inf;
 	
@@ -31,6 +32,11 @@ public class Initializer implements Control{
 		int linkableID = FastConfig.getLinkable(pid_inf);
 		Statistic.query_index = 0;
 		Statistic.total_time = 0;
+		Statistic.query_complete = 0;
+		for (int i=0; i<Statistic.FILE_NUM; i++){
+			int chunkNum = CommonState.r.nextInt(4)+1;
+			Statistic.fileChunkNum.put(Integer.toString(i), chunkNum);
+		}
 		
 		for (int i=0; i<Network.size(); i++){
 			Infrastructure inf = (Infrastructure) Network.get(i).getProtocol(pid_inf);

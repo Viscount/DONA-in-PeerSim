@@ -12,6 +12,11 @@ public class ConnectionManager {
 		detail = new HashMap();
 	}
 	
+	public void addQuery(String file){
+		Connection connection = new Connection();
+		detail.put(file, connection);
+	}
+	
 	public void addSource(String file, int target, int chunkNum){
 		if ( detail.containsKey(file) ){
 			Connection connection = detail.get(file);

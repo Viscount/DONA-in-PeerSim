@@ -1,12 +1,21 @@
 package dona.control;
 
+import java.util.List;
+
+import dona.entity.Message;
+import dona.protocol.Infrastructure;
 import dona.util.Statistic;
 import peersim.config.Configuration;
+import peersim.config.FastConfig;
+import peersim.core.CommonState;
 import peersim.core.Control;
+import peersim.core.Network;
+import peersim.core.Node;
+import peersim.transport.Transport;
 
 public class QueryProducer implements Control{
 	
-	private static String PAR_PROT_INF = "inf_protocol";
+	private static final String PAR_PROT_INF = "inf_protocol";
 	private static final String PAR_QUERY_SIZE = "query_size";
 	private static final String PAR_QUERY_PER_CYC = "query_per_cyc";
 	
@@ -26,7 +35,25 @@ public class QueryProducer implements Control{
 		if ( Statistic.query_index < query_size ){
 			for (int i=Statistic.query_index; i<Statistic.query_index + query_per_cyc; i++){
 				if ( i >= query_size ) break;
-				
+				int random = CommonState.r.nextInt(Network.size());
+				Infrastructure inf = (Infrastructure) Network.get(random).getProtocol(pid_inf);
+				int query = CommonState.r.nextInt(Statistic.FILE_NUM);
+				inf.connectionManager.addQuery(Integer.toString(query));
+				if (inf.contentStore.containsKey(Integer.toString(query))){
+					Statistic.query_complete++;
+					inf.connectionManager.deleteEntry(Integer.toString(query));
+				}
+				else {
+					Message que_mess = new Message("QUE",random,Integer.toString(query));
+					que_mess.insertInfo("RequesterID", random);
+					que_mess.setTTL(Statistic.QUE_TTL);
+					List neighbors = inf.neighbors;
+					for (int k=0; k<neighbors.size(); k++){
+						Node node = Network.get(random);
+						((Transport)node.getProtocol(FastConfig.getTransport(pid_inf))).
+						send(node, Network.get((int) inf.neighbors.get(k)), que_mess, pid_inf);
+					}
+				}
 			}
 		}
 		return false;
