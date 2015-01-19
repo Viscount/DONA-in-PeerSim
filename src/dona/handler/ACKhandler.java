@@ -50,6 +50,7 @@ public class ACKhandler extends Handler{
 					Message req_message = new Message("REQ",node.getIndex(),message.getDataName());
 					req_message.insertInfo("ChunkNo", nextIndex);
 					req_message.insertInfo("SourceID", message.getInfo("SourceID"));
+					req_message.insertInfo("RequesterID", node.getIndex());
 					((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
 					send(node, Network.get(message.getRequester()), req_message, protocolID);
 				}
