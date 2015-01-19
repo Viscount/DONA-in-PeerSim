@@ -26,6 +26,10 @@ public class Connection {
 		chunkNum = num;
 	}
 	
+	public long getStartTime(){
+		return startTime;
+	}
+	
 	public int getChunkNum(){
 		return chunkNum;
 	}

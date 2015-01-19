@@ -7,6 +7,7 @@ import dona.entity.ConnectionManager;
 import dona.entity.FIB;
 import dona.entity.PIT;
 import dona.protocol.Infrastructure;
+import dona.util.Statistic;
 import peersim.config.Configuration;
 import peersim.config.FastConfig;
 import peersim.core.Control;
@@ -28,6 +29,8 @@ public class Initializer implements Control{
 	public boolean execute() {
 		// TODO Auto-generated method stub
 		int linkableID = FastConfig.getLinkable(pid_inf);
+		Statistic.query_index = 0;
+		Statistic.total_time = 0;
 		
 		for (int i=0; i<Network.size(); i++){
 			Infrastructure inf = (Infrastructure) Network.get(i).getProtocol(pid_inf);

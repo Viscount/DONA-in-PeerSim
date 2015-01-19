@@ -1,5 +1,6 @@
 package dona.control;
 
+import dona.util.Statistic;
 import peersim.config.Configuration;
 import peersim.core.Control;
 
@@ -22,7 +23,12 @@ public class QueryProducer implements Control{
 	@Override
 	public boolean execute() {
 		// TODO Auto-generated method stub
-		
+		if ( Statistic.query_index < query_size ){
+			for (int i=Statistic.query_index; i<Statistic.query_index + query_per_cyc; i++){
+				if ( i >= query_size ) break;
+				
+			}
+		}
 		return false;
 	}
 

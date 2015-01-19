@@ -34,6 +34,10 @@ public class ConnectionManager {
 		return detail.get(file).getActiveNum();
 	}
 	
+	public long getStartTime(String file){
+		return detail.get(file).getStartTime();
+	}
+	
 	public void activate(String file){
 		detail.get(file).activate();
 	}

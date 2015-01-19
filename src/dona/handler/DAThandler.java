@@ -3,6 +3,7 @@ package dona.handler;
 import java.util.List;
 
 import peersim.config.FastConfig;
+import peersim.core.CommonState;
 import peersim.core.Network;
 import peersim.core.Node;
 import peersim.transport.Transport;
@@ -42,7 +43,9 @@ public class DAThandler extends Handler{
 			if ( nextIndex == -1 ){
 				//  all REQ sent out, check if last DAT
 				if (inf.connectionManager.getChunkNum(dataName) <= inf.connectionManager.getReceivedNum(dataName)){
+					Statistic.total_time += CommonState.getTime() - inf.connectionManager.getStartTime(dataName);
 					inf.connectionManager.deleteEntry(dataName);
+					// generate REG
 					Message reg_mess = new Message("REG",node.getIndex(),dataName);
 					reg_mess.insertInfo("SourceID", node.getIndex());
 					reg_mess.setTTL(Statistic.REG_TTL);
