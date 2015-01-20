@@ -21,6 +21,7 @@ public class ConnectionManager {
 		if ( detail.containsKey(file) ){
 			Connection connection = detail.get(file);
 			connection.addSource(target);
+			connection.setChunkNum(chunkNum);
 			detail.put(file, connection);
 		}
 		else {

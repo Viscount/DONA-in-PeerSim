@@ -43,6 +43,7 @@ public class DAThandler extends Handler{
 			if ( nextIndex == -1 ){
 				//  all REQ sent out, check if last DAT
 				if (inf.connectionManager.getChunkNum(dataName) <= inf.connectionManager.getReceivedNum(dataName)){
+					Statistic.query_complete++;
 					Statistic.total_time += CommonState.getTime() - inf.connectionManager.getStartTime(dataName);
 					inf.connectionManager.deleteEntry(dataName);
 					// generate REG

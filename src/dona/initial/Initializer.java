@@ -36,7 +36,7 @@ public class Initializer implements Control{
 		Statistic.fileChunkNum = new HashMap();
 		for (int i=0; i<Statistic.FILE_NUM; i++){
 			int chunkNum = CommonState.r.nextInt(4)+1;
-			Statistic.fileChunkNum.put(Integer.toString(i), chunkNum);
+			Statistic.fileChunkNum.put(Integer.toString(i), chunkNum * 100);
 		}
 		
 		for (int i=0; i<Network.size(); i++){

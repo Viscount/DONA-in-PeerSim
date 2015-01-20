@@ -35,6 +35,7 @@ public class QueryProducer implements Control{
 		if ( Statistic.query_index < query_size ){
 			for (int i=Statistic.query_index; i<Statistic.query_index + query_per_cyc; i++){
 				if ( i >= query_size ) break;
+				Statistic.query_index++;
 				int random = CommonState.r.nextInt(Network.size());
 				Infrastructure inf = (Infrastructure) Network.get(random).getProtocol(pid_inf);
 				int query = CommonState.r.nextInt(Statistic.FILE_NUM);
