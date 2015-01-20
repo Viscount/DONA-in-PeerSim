@@ -4,6 +4,9 @@ import dona.util.Statistic;
 import peersim.core.Control;
 
 public class IndicatorObserver implements Control{
+	
+	public IndicatorObserver(String prefix){
+	}
 
 	@Override
 	public boolean execute() {
