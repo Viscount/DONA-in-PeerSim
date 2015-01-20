@@ -12,7 +12,7 @@ public class Log {
 	public static void write(String event){
 		try {
 			FileWriter fwriter = new FileWriter(filename,true);
-			event = CommonState.getTime()+ event;
+			event = CommonState.getTime()+ " " + event;
 			fwriter.write(event);
 			fwriter.close();
 		} catch (IOException e) {
