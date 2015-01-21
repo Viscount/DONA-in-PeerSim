@@ -3,6 +3,7 @@ package dona.util;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 
 import dona.entity.Connection;
@@ -67,14 +68,20 @@ public class Log {
 			fwriter.write("FIB: \r\n");
 			for (Iterator it = inf.fib.detail.entrySet().iterator();it.hasNext();){
 				Entry entry = (Entry) it.next();
-				SourceInfo sInfo = (SourceInfo) entry.getValue();
-				fwriter.write(entry.getKey()+"-("+sInfo.sourceID+","+sInfo.faceID+")\r\n");
+				List facelist = (List) entry.getValue();
+				for (int i=0; i<facelist.size(); i++){
+					SourceInfo sInfo = (SourceInfo) facelist.get(i);
+					fwriter.write(entry.getKey()+"-("+sInfo.sourceID+","+sInfo.faceID+")\r\n");
+				}
 			}
 			fwriter.write("PIT: \r\n");
 			for (Iterator it = inf.pit.detail.entrySet().iterator();it.hasNext();){
 				Entry entry = (Entry) it.next();
-				FaceInterest fInt = (FaceInterest) entry.getValue();
-				fwriter.write(entry.getKey()+"-("+fInt.faceID+","+fInt.remain+")\r\n");
+				List facelist = (List) entry.getValue();
+				for (int i=0; i<facelist.size(); i++){
+					FaceInterest fInt = (FaceInterest) facelist.get(i);
+					fwriter.write(entry.getKey()+"-("+fInt.faceID+","+fInt.remain+")\r\n");
+				}
 			}
 			fwriter.write("ConnectionManager: \r\n");
 			for (Iterator it = inf.connectionManager.detail.entrySet().iterator();it.hasNext();){
