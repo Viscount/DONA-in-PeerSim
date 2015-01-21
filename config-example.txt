@@ -2,7 +2,7 @@
 SIZE 15 
 # parameters of periodic execution 
 CYCLES 100 
-CYCLE SIZE*100 
+CYCLE SIZE*1000 
 # parameters of message transfer 
 # delay values here are relative to cycle length, in percentage, 
 # eg 50 means half the cycle length, 200 twice the cycle length, etc. 
@@ -23,7 +23,7 @@ protocol.inf dona.protocol.Infrastructure
 protocol.inf.linkable lnk
 protocol.inf.transport tr
 protocol.inf.mode Multipath
-protocol.inf.path_num 2
+protocol.inf.path_num 3
 
 protocol.urt UniformRandomTransport 
 protocol.urt.mindelay MINDELAY 

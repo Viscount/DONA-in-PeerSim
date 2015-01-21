@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class ConnectionManager {
 	
-	private Map<String, Connection> detail;
+	public Map<String, Connection> detail;
 	
 	public ConnectionManager(){
 		detail = new HashMap();

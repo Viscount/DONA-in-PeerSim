@@ -6,6 +6,7 @@ import peersim.core.Node;
 import peersim.transport.Transport;
 import dona.entity.Message;
 import dona.protocol.Infrastructure;
+import dona.util.Log;
 
 public class REQhandler extends Handler{
 
@@ -21,6 +22,10 @@ public class REQhandler extends Handler{
 				dat_message.insertInfo("ChunkNo", message.getInfo("ChunkNo"));
 				dat_message.insertInfo("SourceID", (int)node.getID());
 				dat_message.insertInfo("RequesterID", message.getInfo("RequesterID"));
+				
+				Log.write("Source reached, generate DAT.");
+				Log.write(dat_message);
+				
 				((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
 				send(node, Network.get(message.getRequester()), dat_message, protocolID);
 			}

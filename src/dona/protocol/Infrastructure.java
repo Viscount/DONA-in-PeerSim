@@ -9,6 +9,7 @@ import dona.entity.Message;
 import dona.entity.PIT;
 import dona.handler.Handler;
 import dona.handler.HandlerFactory;
+import dona.util.Log;
 import peersim.config.Configuration;
 import peersim.config.FastConfig;
 import peersim.core.Network;
@@ -47,10 +48,14 @@ public class Infrastructure extends SingleValueHolder implements EDProtocol{
 		// drop the message with no requester
 		if ( message.getRequester() == -1 ) return;
 		
+		Log.write("Node received message.");
+		Log.write(node, protocolID);
+		Log.write(message);
+		
 		Handler handler = HandlerFactory.createHandler(message.getMessageType());
 		handler.handleMessage(node, protocolID, message);
 		
+		Log.write("Handler Complete.");
+		Log.write(node, protocolID);		
 	}
-	
-
 }

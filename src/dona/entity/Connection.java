@@ -53,6 +53,10 @@ public class Connection {
 		return result;
 	}
 	
+	public int getCurrentChunkIndex(){
+		return nextChunkIndex;
+	}
+	
 	public int getActiveNum(){
 		return activeNum;
 	}

@@ -9,6 +9,7 @@ import peersim.transport.Transport;
 import dona.entity.FaceInterest;
 import dona.entity.Message;
 import dona.protocol.Infrastructure;
+import dona.util.Log;
 
 public class ACKhandler extends Handler{
 
@@ -38,6 +39,8 @@ public class ACKhandler extends Handler{
 		else {
 			if ((int)message.getInfo("RequesterID") != node.getIndex()) return;
 			// reach the requester
+			Log.write("Requester reached.");
+			
 			inf.connectionManager.addSource(message.getDataName(), 
 					(int) message.getInfo("SourceID"), (int) message.getInfo("ChunkNum"));
 			if (inf.connectionManager.getActiveNum(message.getDataName()) < inf.path_num){

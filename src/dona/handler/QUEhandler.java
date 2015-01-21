@@ -9,6 +9,7 @@ import peersim.transport.Transport;
 import dona.entity.Message;
 import dona.entity.SourceInfo;
 import dona.protocol.Infrastructure;
+import dona.util.Log;
 import dona.util.Statistic;
 
 public class QUEhandler extends Handler{
@@ -16,6 +17,7 @@ public class QUEhandler extends Handler{
 	@Override
 	public void handleMessage(Node node, int protocolID, Message message) {
 		// TODO Auto-generated method stub
+		Log.write("Message processed on QUE handler.");
 		Infrastructure inf = (Infrastructure) node.getProtocol(protocolID);
 		
 		if ( inf.contentStore.containsKey(message.getDataName())){
@@ -25,6 +27,10 @@ public class QUEhandler extends Handler{
 			ack_message.insertInfo("ChunkNum", chunknum);
 			ack_message.insertInfo("SourceID", (int)node.getID());
 			ack_message.insertInfo("RequesterID", message.getInfo("RequesterID"));
+			
+			Log.write("Source found, generate ACK.");
+			Log.write(ack_message);
+			
 			((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
 			send(node, Network.get(message.getRequester()), ack_message, protocolID);
 		}

@@ -1,7 +1,9 @@
 package dona.entity;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Message implements Cloneable{
 	
@@ -39,6 +41,10 @@ public class Message implements Cloneable{
 	
 	public Object getInfo(String key){
 		return additionalInfo.get(key);
+	}
+	
+	public Map getAllInf(){
+		return additionalInfo;
 	}
 	
 	public void insertInfo(String key, Object value){
