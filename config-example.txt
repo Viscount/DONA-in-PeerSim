@@ -32,7 +32,7 @@ protocol.tr UnreliableTransport
 protocol.tr.transport urt 
 protocol.tr.drop DROP
 
-init.0 WireKOut
+init.0 dona.initial.WireKNode
 init.0.protocol lnk
 init.0.k 3
 

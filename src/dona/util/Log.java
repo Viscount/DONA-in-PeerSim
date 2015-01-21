@@ -23,7 +23,7 @@ public class Log {
 		try {
 			FileWriter fwriter = new FileWriter(filename,true);
 			event = CommonState.getTime()+ " " + event;
-			fwriter.write(event);
+			fwriter.write(event+"\r\n");
 			fwriter.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -43,7 +43,7 @@ public class Log {
 			fwriter.write("Additional={");
 			for (Iterator it = message.getAllInf().entrySet().iterator();it.hasNext();){
 				Entry entry = (Entry) it.next();
-				fwriter.write(entry.getKey()+"-"+entry.getValue()+"\r\n");
+				fwriter.write(entry.getKey()+"-"+entry.getValue()+",");
 			}
 			fwriter.write("}\r\n");
 			fwriter.close();

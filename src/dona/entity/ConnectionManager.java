@@ -17,12 +17,15 @@ public class ConnectionManager {
 		detail.put(file, connection);
 	}
 	
-	public void addSource(String file, int target, int chunkNum){
+	public boolean addSource(String file, int target, int chunkNum){
 		if ( detail.containsKey(file) ){
 			Connection connection = detail.get(file);
-			connection.addSource(target);
-			connection.setChunkNum(chunkNum);
-			detail.put(file, connection);
+			boolean flag = connection.addSource(target);
+			if (flag) {
+				connection.setChunkNum(chunkNum);
+				detail.put(file, connection);
+			}
+			return flag;
 		}
 		else {
 //			Connection connection = new Connection();
@@ -30,6 +33,7 @@ public class ConnectionManager {
 //			connection.setChunkNum(chunkNum);
 //			detail.put(file, connection);
 		}
+		return false;
 	}
 	
 	public List getAvailableSource(String file){

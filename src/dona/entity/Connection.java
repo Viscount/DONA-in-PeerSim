@@ -42,8 +42,12 @@ public class Connection {
 		return availableSource;
 	}
 	
-	public void addSource(int target){
-		availableSource.add(target);
+	public boolean addSource(int target){
+		if (!availableSource.contains(target)){
+			availableSource.add(target);
+			return true;
+		}
+		else return false;
 	}
 	
 	public int getNextChunkIndex(){

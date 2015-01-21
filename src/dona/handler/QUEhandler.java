@@ -17,7 +17,6 @@ public class QUEhandler extends Handler{
 	@Override
 	public void handleMessage(Node node, int protocolID, Message message) {
 		// TODO Auto-generated method stub
-		Log.write("Message processed on QUE handler.");
 		Infrastructure inf = (Infrastructure) node.getProtocol(protocolID);
 		
 		if ( inf.contentStore.containsKey(message.getDataName())){

@@ -10,6 +10,7 @@ import peersim.transport.Transport;
 import dona.entity.FaceInterest;
 import dona.entity.Message;
 import dona.protocol.Infrastructure;
+import dona.util.Log;
 import dona.util.Statistic;
 
 public class DAThandler extends Handler{
@@ -42,6 +43,8 @@ public class DAThandler extends Handler{
 			int nextIndex = inf.connectionManager.getNextIndex(dataName);
 			if ( nextIndex == -1 ){
 				//  all REQ sent out, check if last DAT
+				Log.write("Transport completed.");
+				
 				if (inf.connectionManager.getChunkNum(dataName) <= inf.connectionManager.getReceivedNum(dataName)){
 					Statistic.query_complete++;
 					Statistic.total_time += CommonState.getTime() - inf.connectionManager.getStartTime(dataName);
