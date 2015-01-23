@@ -10,6 +10,7 @@ import dona.entity.FaceInterest;
 import dona.entity.Message;
 import dona.protocol.Infrastructure;
 import dona.util.Log;
+import dona.util.Statistic;
 
 public class ACKhandler extends Handler{
 
@@ -39,7 +40,7 @@ public class ACKhandler extends Handler{
 		else {
 			if ((int)message.getInfo("RequesterID") != node.getIndex()) return;
 			// reach the requester
-			Log.write("Requester reached.");
+			if ( Statistic.LOG ) Log.write("Requester reached.");
 			
 			boolean flag = inf.connectionManager.addSource(message.getDataName(), 
 					(int) message.getInfo("SourceID"), (int) message.getInfo("ChunkNum"));

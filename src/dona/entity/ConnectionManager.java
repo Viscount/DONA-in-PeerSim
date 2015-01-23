@@ -13,8 +13,15 @@ public class ConnectionManager {
 	}
 	
 	public void addQuery(String file){
-		Connection connection = new Connection();
-		detail.put(file, connection);
+		if ( detail.containsKey(file) ){
+			Connection connection = detail.get(file);
+			connection.addNewQuery();
+			detail.put(file, connection);
+		}
+		else {
+			Connection connection = new Connection();
+			detail.put(file, connection);
+		}
 	}
 	
 	public boolean addSource(String file, int target, int chunkNum){
@@ -44,7 +51,7 @@ public class ConnectionManager {
 		return detail.get(file).getActiveNum();
 	}
 	
-	public long getStartTime(String file){
+	public List getStartTime(String file){
 		return detail.get(file).getStartTime();
 	}
 	

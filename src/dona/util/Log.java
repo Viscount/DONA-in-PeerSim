@@ -97,6 +97,10 @@ public class Log {
 				for (int i=0; i<connection.getAvailableSource().size();i++){
 					fwriter.write( connection.getAvailableSource().get(i)+",");
 				}
+				fwriter.write("  StartTime : ");
+				for (int i=0; i<connection.getStartTime().size();i++){
+					fwriter.write( connection.getStartTime().get(i)+",");
+				}
 				fwriter.write("\r\n");
 			}
 			fwriter.write("\r\n");

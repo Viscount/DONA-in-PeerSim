@@ -1,5 +1,6 @@
 package dona.initial;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -38,7 +39,10 @@ public class Initializer implements Control{
 			int chunkNum = CommonState.r.nextInt(4)+1;
 			Statistic.fileChunkNum.put(Integer.toString(i), chunkNum * 100);
 		}
-		
+		if ( Statistic.LOG ) {
+			File file = new File("dona.log");
+			if (file.exists()) file.delete();
+		}
 		for (int i=0; i<Network.size(); i++){
 			Infrastructure inf = (Infrastructure) Network.get(i).getProtocol(pid_inf);
 			inf.connectionManager = new ConnectionManager();

@@ -12,21 +12,27 @@ public class Connection {
 	private int activeNum;
 	private int chunkNum;
 	private int chunkReceived;
-	private long startTime;
+	private List startTime;
+	
 	
 	public Connection(){
 		availableSource = new ArrayList();
 		nextChunkIndex = 0;
 		chunkNum = 0;
 		chunkReceived = 0;
-		startTime = CommonState.getTime();
+		startTime = new ArrayList();
+		startTime.add(CommonState.getTime());
+	}
+	
+	public void addNewQuery(){
+		startTime.add(CommonState.getTime());
 	}
 	
 	public void setChunkNum(int num){
 		chunkNum = num;
 	}
 	
-	public long getStartTime(){
+	public List getStartTime(){
 		return startTime;
 	}
 	

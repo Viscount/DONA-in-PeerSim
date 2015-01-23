@@ -4,6 +4,7 @@ import java.util.List;
 
 import dona.entity.Message;
 import dona.protocol.Infrastructure;
+import dona.util.Log;
 import dona.util.Statistic;
 import peersim.config.Configuration;
 import peersim.config.FastConfig;
@@ -33,12 +34,16 @@ public class QueryProducer implements Control{
 	public boolean execute() {
 		// TODO Auto-generated method stub
 		if ( Statistic.query_index < query_size ){
-			for (int i=Statistic.query_index; i<Statistic.query_index + query_per_cyc; i++){
+			int startIndex = Statistic.query_index;
+			for (int i=startIndex; i<startIndex + query_per_cyc; i++){
 				if ( i >= query_size ) break;
 				Statistic.query_index++;
 				int random = CommonState.r.nextInt(Network.size());
 				Infrastructure inf = (Infrastructure) Network.get(random).getProtocol(pid_inf);
 				int query = CommonState.r.nextInt(Statistic.FILE_NUM);
+				
+				if ( Statistic.LOG ) Log.write("Node "+random+" requires file "+query);
+				
 				inf.connectionManager.addQuery(Integer.toString(query));
 				if (inf.contentStore.containsKey(Integer.toString(query))){
 					Statistic.query_complete++;

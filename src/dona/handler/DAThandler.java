@@ -25,16 +25,17 @@ public class DAThandler extends Handler{
 			for (int i=0; i<facelist.size(); i++){
 				FaceInterest nexthop = (FaceInterest) facelist.get(i);
 				try {
+					nexthop.remain--;
 					Message new_mess = message.clone((int)node.getID());
 					((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
 					send(node, Network.get(nexthop.faceID), new_mess, protocolID);
-					nexthop.remain--;
+//					if (nexthop.remain<=0) facelist.remove(i);
 				} catch (CloneNotSupportedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			inf.pit.deleteInvalidEntry(message.getDataName());
+			inf.pit.deleteInvalidEntry(message.getDataName()+","+message.getInfo("ChunkNo"));
 		}
 		else {
 			if ((int)message.getInfo("RequesterID") != node.getIndex()) return;
@@ -43,11 +44,15 @@ public class DAThandler extends Handler{
 			int nextIndex = inf.connectionManager.getNextIndex(dataName);
 			if ( nextIndex == -1 ){
 				//  all REQ sent out, check if last DAT
-				Log.write("Transport completed.");
+				if ( Statistic.LOG ) Log.write("Transport completed.");
 				
 				if (inf.connectionManager.getChunkNum(dataName) <= inf.connectionManager.getReceivedNum(dataName)){
-					Statistic.query_complete++;
-					Statistic.total_time += CommonState.getTime() - inf.connectionManager.getStartTime(dataName);
+					int query_num = inf.connectionManager.getStartTime(dataName).size();
+					Statistic.query_complete += query_num;
+					for (int i=0; i<query_num; i++){
+						Statistic.total_time += CommonState.getTime() - 
+								(long)inf.connectionManager.getStartTime(dataName).get(i);
+					}
 					inf.connectionManager.deleteEntry(dataName);
 					// generate REG
 					Message reg_mess = new Message("REG",node.getIndex(),dataName);
