@@ -1,8 +1,8 @@
 # network size 
 SIZE 15 
 # parameters of periodic execution 
-CYCLES 100 
-CYCLE SIZE*1000 
+CYCLES 1000 
+CYCLE SIZE*100 
 # parameters of message transfer 
 # delay values here are relative to cycle length, in percentage, 
 # eg 50 means half the cycle length, 200 twice the cycle length, etc. 
@@ -11,7 +11,7 @@ MAXDELAY 50
 # drop is a probability, 0<=DROP<=1 
 DROP 0
 
-random.seed 1234567890 
+random.seed 70214991
 
 network.size SIZE 
 simulation.endtime CYCLE*CYCLES 
@@ -23,29 +23,29 @@ protocol.inf dona.protocol.Infrastructure
 protocol.inf.linkable lnk
 protocol.inf.transport tr
 protocol.inf.mode Multipath
-protocol.inf.path_num 3
+protocol.inf.path_num 4
 
 protocol.urt UniformRandomTransport 
-protocol.urt.mindelay MINDELAY 
-protocol.urt.maxdelay MAXDELAY 
+protocol.urt.mindelay MINDELAY
+protocol.urt.maxdelay MAXDELAY
 protocol.tr UnreliableTransport 
 protocol.tr.transport urt 
 protocol.tr.drop DROP
 
 init.0 dona.initial.WireKNode
 init.0.protocol lnk
-init.0.k 3
+init.0.k 1
 
 init.1 dona.initial.Initializer
 init.1.inf_protocol inf
 
 init.2 dona.initial.FilePlacement
 init.2.inf_protocol inf
-init.2.init_source 3
+init.2.init_source 4
 
 control.0 dona.control.QueryProducer
 control.0.inf_protocol inf
-control.0.query_size 1
+control.0.query_size 10
 control.0.query_per_cyc 1
 control.0.step CYCLE
 
