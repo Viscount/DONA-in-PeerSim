@@ -36,7 +36,8 @@ public class Initializer implements Control{
 		Statistic.query_complete = 0;
 		Statistic.fileChunkNum = new HashMap();
 		for (int i=0; i<Statistic.FILE_NUM; i++){
-			int chunkNum = CommonState.r.nextInt(4)+1;
+//			int chunkNum = CommonState.r.nextInt(4)+1;
+			int chunkNum = 1;
 			Statistic.fileChunkNum.put(Integer.toString(i), chunkNum * 100);
 		}
 		if ( Statistic.LOG ) {

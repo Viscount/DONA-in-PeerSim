@@ -1,5 +1,5 @@
 # network size 
-SIZE 15 
+SIZE 100 
 # parameters of periodic execution 
 CYCLES 1000 
 CYCLE SIZE*100 
@@ -34,19 +34,19 @@ protocol.tr.drop DROP
 
 init.0 dona.initial.WireKNode
 init.0.protocol lnk
-init.0.k 1
+init.0.k 5
 
 init.1 dona.initial.Initializer
 init.1.inf_protocol inf
 
 init.2 dona.initial.FilePlacement
 init.2.inf_protocol inf
-init.2.init_source 4
+init.2.init_source 5
 
 control.0 dona.control.QueryProducer
 control.0.inf_protocol inf
-control.0.query_size 10
-control.0.query_per_cyc 1
+control.0.query_size 100
+control.0.query_per_cyc 10
 control.0.step CYCLE
 
 control.1 dona.control.IndicatorObserver

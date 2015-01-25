@@ -46,15 +46,15 @@ public class FilePlacement implements Control{
 				
 				// optional, REG for initial resource
 				
-				Message reg_mess = new Message("REG",nodeID,Integer.toString(i));
-				reg_mess.insertInfo("SourceID", nodeID);
-				reg_mess.setTTL(Statistic.REG_TTL);
-				List neighbors = inf.neighbors;
-				Node node = Network.get(nodeID);
-				for (int k=0; k<neighbors.size(); k++){
-					((Transport)node.getProtocol(FastConfig.getTransport(pid_inf))).
-					send(node, Network.get((int) inf.neighbors.get(k)), reg_mess, pid_inf);
-				}
+//				Message reg_mess = new Message("REG",nodeID,Integer.toString(i));
+//				reg_mess.insertInfo("SourceID", nodeID);
+//				reg_mess.setTTL(Statistic.REG_TTL);
+//				List neighbors = inf.neighbors;
+//				Node node = Network.get(nodeID);
+//				for (int k=0; k<neighbors.size(); k++){
+//					((Transport)node.getProtocol(FastConfig.getTransport(pid_inf))).
+//					send(node, Network.get((int) inf.neighbors.get(k)), reg_mess, pid_inf);
+//				}
 			}
 		}
 		return false;
