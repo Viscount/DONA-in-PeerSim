@@ -44,9 +44,11 @@ public class DAThandler extends Handler{
 			int nextIndex = inf.connectionManager.getNextIndex(dataName);
 			if ( nextIndex == -1 ){
 				//  all REQ sent out, check if last DAT
-				if ( Statistic.LOG ) Log.write("Transport completed.");
-				
 				if (inf.connectionManager.getChunkNum(dataName) <= inf.connectionManager.getReceivedNum(dataName)){
+					
+					if ( Statistic.LOG ) Log.write("Query "+node.getIndex()+" for file "+message.getDataName()+
+							" Transport completed.");
+					
 					int query_num = inf.connectionManager.getStartTime(dataName).size();
 					Statistic.query_complete += query_num;
 					for (int i=0; i<query_num; i++){

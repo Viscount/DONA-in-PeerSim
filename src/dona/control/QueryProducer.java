@@ -42,10 +42,14 @@ public class QueryProducer implements Control{
 				Infrastructure inf = (Infrastructure) Network.get(random).getProtocol(pid_inf);
 				int query = CommonState.r.nextInt(Statistic.FILE_NUM);
 				
-				if ( Statistic.LOG ) Log.write("Node "+random+" requires file "+query);
+				if ( Statistic.LOG ) Log.write("Query "+Statistic.query_index+" Node "+random+" requires file "+query);
 				
 				inf.connectionManager.addQuery(Integer.toString(query));
 				if (inf.contentStore.containsKey(Integer.toString(query))){
+					
+					if ( Statistic.LOG ) Log.write("Query "+random+" for file "+query+
+							" Transport completed.");
+					
 					Statistic.query_complete++;
 					inf.connectionManager.deleteEntry(Integer.toString(query));
 				}

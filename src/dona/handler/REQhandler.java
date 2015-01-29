@@ -24,10 +24,10 @@ public class REQhandler extends Handler{
 				dat_message.insertInfo("SourceID", (int)node.getID());
 				dat_message.insertInfo("RequesterID", message.getInfo("RequesterID"));
 				
-				if ( Statistic.LOG ){
-					Log.write("Source reached, generate DAT.");
-					Log.write(dat_message);
-				}
+//				if ( Statistic.LOG ){
+//					Log.write("Source reached, generate DAT.");
+//					Log.write(dat_message);
+//				}
 				
 				
 				((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).

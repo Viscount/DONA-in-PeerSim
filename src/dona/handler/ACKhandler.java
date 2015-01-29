@@ -40,7 +40,8 @@ public class ACKhandler extends Handler{
 		else {
 			if ((int)message.getInfo("RequesterID") != node.getIndex()) return;
 			// reach the requester
-			if ( Statistic.LOG ) Log.write("Requester reached.");
+			if ( Statistic.LOG ) Log.write("Node "+node.getIndex()+" receive source "+ message.getInfo("SourceID")+
+					"for file "+message.getDataName());
 			
 			boolean flag = inf.connectionManager.addSource(message.getDataName(), 
 					(int) message.getInfo("SourceID"), (int) message.getInfo("ChunkNum"));

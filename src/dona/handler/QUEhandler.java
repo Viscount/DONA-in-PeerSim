@@ -27,8 +27,9 @@ public class QUEhandler extends Handler{
 			ack_message.insertInfo("SourceID", (int)node.getID());
 			ack_message.insertInfo("RequesterID", message.getInfo("RequesterID"));
 			
-			if ( Statistic.LOG ) Log.write("Source found, generate ACK.");
-			if ( Statistic.LOG )Log.write(ack_message);
+			if ( Statistic.LOG ) Log.write("Query node "+message.getInfo("RequesterID")+
+					" for file "+message.getDataName()+ " find source in node "+ node.getIndex());
+//			if ( Statistic.LOG )Log.write(ack_message);
 			
 			((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
 			send(node, Network.get(message.getRequester()), ack_message, protocolID);

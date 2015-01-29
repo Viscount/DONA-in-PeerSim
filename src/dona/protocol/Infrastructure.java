@@ -49,18 +49,18 @@ public class Infrastructure extends SingleValueHolder implements EDProtocol{
 		// drop the message with no requester
 		if ( message.getRequester() == -1 ) return;
 		
-		if ( Statistic.LOG ){
-			Log.write("Node received message.");
-			Log.write(node, protocolID);
-			Log.write(message);
-		}
+//		if ( Statistic.LOG ){
+//			Log.write("Node received message.");
+//			Log.write(node, protocolID);
+//			Log.write(message);
+//		}
 		
 		Handler handler = HandlerFactory.createHandler(message.getMessageType());
 		handler.handleMessage(node, protocolID, message);
 		
-		if ( Statistic.LOG ){
-			Log.write("Handler Complete.");
-			Log.write(node, protocolID);
-		}
+//		if ( Statistic.LOG ){
+//			Log.write("Handler Complete.");
+//			Log.write(node, protocolID);
+//		}
 	}
 }
