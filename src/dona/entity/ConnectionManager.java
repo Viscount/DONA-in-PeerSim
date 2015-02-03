@@ -47,6 +47,10 @@ public class ConnectionManager {
 		return detail.get(file).getAvailableSource();
 	}
 	
+	public boolean containsSource(String file, int sourceID){
+		return detail.get(file).containsSource(sourceID);
+	}
+	
 	public int getActiveNum(String file){
 		return detail.get(file).getActiveNum();
 	}

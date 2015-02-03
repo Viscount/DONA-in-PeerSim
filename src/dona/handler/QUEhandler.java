@@ -3,6 +3,7 @@ package dona.handler;
 import java.util.List;
 
 import peersim.config.FastConfig;
+import peersim.core.CommonState;
 import peersim.core.Network;
 import peersim.core.Node;
 import peersim.transport.Transport;
@@ -35,11 +36,12 @@ public class QUEhandler extends Handler{
 			send(node, Network.get(message.getRequester()), ack_message, protocolID);
 		}
 		else {
+			inf.pit.deleteInvalidEntry(message.getDataName());
 			if (inf.pit.containsKey(message.getDataName())){
-				inf.pit.addFace(message.getDataName(), message.getRequester(), Statistic.PIT_PENDING_TIME);
+				inf.pit.addFace(message.getDataName(), message.getRequester());
 			}
 			else {
-				inf.pit.addEntry(message.getDataName(), message.getRequester(), Statistic.PIT_PENDING_TIME);
+				inf.pit.addEntry(message.getDataName(), message.getRequester(), CommonState.getTime());
 				if (inf.fib.containsKey(message.getDataName())){
 					// hit in fib, multicast to all source
 					List facelist = inf.fib.getNextHop(message.getDataName());

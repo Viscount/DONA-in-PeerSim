@@ -1,6 +1,7 @@
 package dona.handler;
 
 import peersim.config.FastConfig;
+import peersim.core.CommonState;
 import peersim.core.Network;
 import peersim.core.Node;
 import peersim.transport.Transport;
@@ -36,10 +37,10 @@ public class REQhandler extends Handler{
 		}
 		else {
 			if (inf.pit.containsKey(message.getDataName()+","+message.getInfo("ChunkNo"))){
-				inf.pit.addFace(message.getDataName()+","+message.getInfo("ChunkNo"), message.getRequester(), 1);
+				inf.pit.addFace(message.getDataName()+","+message.getInfo("ChunkNo"), message.getRequester());
 			}
 			else {
-				inf.pit.addEntry(message.getDataName()+","+message.getInfo("ChunkNo"), message.getRequester(), 1);
+				inf.pit.addEntry(message.getDataName()+","+message.getInfo("ChunkNo"), message.getRequester(),CommonState.getTime());
 				if (inf.fib.containsKey(message.getDataName())){
 					int nexthop = inf.fib.getNextHop(message.getDataName(), (int)message.getInfo("SourceID"));
 					try {

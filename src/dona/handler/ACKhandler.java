@@ -3,6 +3,7 @@ package dona.handler;
 import java.util.List;
 
 import peersim.config.FastConfig;
+import peersim.core.CommonState;
 import peersim.core.Network;
 import peersim.core.Node;
 import peersim.transport.Transport;
@@ -17,19 +18,22 @@ public class ACKhandler extends Handler{
 	@Override
 	public void handleMessage(Node node, int protocolID, Message message) {
 		// TODO Auto-generated method stub
+		
+		Infrastructure inf_source = (Infrastructure) Network.get((int)message.getInfo("RequesterID")).getProtocol(protocolID);
+		if (inf_source.connectionManager.containsSource(message.getDataName(), (int) message.getInfo("SourceID"))) return;
+		
 		Infrastructure inf = (Infrastructure) node.getProtocol(protocolID);
 		
 		if ( inf.pit.containsKey(message.getDataName()) ){
 			// hit in PIT, forward to all query
 			inf.fib.addItem(message.getDataName(), (int) message.getInfo("SourceID"),message.getRequester());
-			List facelist = (List) inf.pit.get(message.getDataName());
+			List facelist = ((FaceInterest) inf.pit.get(message.getDataName())).faceList;
 			for (int i=0; i<facelist.size(); i++){
-				FaceInterest nexthop = (FaceInterest) facelist.get(i);
+				int nexthop = (int) facelist.get(i);
 				try {
 					Message new_mess = message.clone((int)node.getID());
 					((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
-					send(node, Network.get(nexthop.faceID), new_mess, protocolID);
-					nexthop.remain--;
+					send(node, Network.get(nexthop), new_mess, protocolID);
 				} catch (CloneNotSupportedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -41,7 +45,7 @@ public class ACKhandler extends Handler{
 			if ((int)message.getInfo("RequesterID") != node.getIndex()) return;
 			// reach the requester
 			if ( Statistic.LOG ) Log.write("Node "+node.getIndex()+" receive source "+ message.getInfo("SourceID")+
-					"for file "+message.getDataName());
+					" for file "+message.getDataName());
 			
 			boolean flag = inf.connectionManager.addSource(message.getDataName(), 
 					(int) message.getInfo("SourceID"), (int) message.getInfo("ChunkNum"));

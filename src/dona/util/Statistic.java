@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class Statistic {
 	
-	public static final int PIT_PENDING_TIME = 5;
+	public static final int PIT_PENDING_TIME = 1000;
 	public static final int QUE_TTL = 5;
 	public static final int REG_TTL = 2;
 	public static final int FILE_NUM = 10;

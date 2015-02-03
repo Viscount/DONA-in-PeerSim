@@ -75,14 +75,14 @@ public class Log {
 				}
 			}
 			fwriter.write("PIT: \r\n");
-			for (Iterator it = inf.pit.detail.entrySet().iterator();it.hasNext();){
-				Entry entry = (Entry) it.next();
-				List facelist = (List) entry.getValue();
-				for (int i=0; i<facelist.size(); i++){
-					FaceInterest fInt = (FaceInterest) facelist.get(i);
-					fwriter.write(entry.getKey()+"-("+fInt.faceID+","+fInt.remain+")\r\n");
-				}
-			}
+//			for (Iterator it = inf.pit.detail.entrySet().iterator();it.hasNext();){
+//				Entry entry = (Entry) it.next();
+//				List facelist = (List) entry.getValue();
+//				for (int i=0; i<facelist.size(); i++){
+//					FaceInterest fInt = (FaceInterest) facelist.get(i);
+//					fwriter.write(entry.getKey()+"-("+fInt.faceID+","+fInt.remain+")\r\n");
+//				}
+//			}
 			fwriter.write("ConnectionManager: \r\n");
 			for (Iterator it = inf.connectionManager.detail.entrySet().iterator();it.hasNext();){
 				Entry entry = (Entry) it.next();

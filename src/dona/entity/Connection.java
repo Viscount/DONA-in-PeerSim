@@ -48,6 +48,10 @@ public class Connection {
 		return availableSource;
 	}
 	
+	public boolean containsSource(int sourceID){
+		return (availableSource.contains(sourceID));
+	}
+	
 	public boolean addSource(int target){
 		if (!availableSource.contains(target)){
 			availableSource.add(target);

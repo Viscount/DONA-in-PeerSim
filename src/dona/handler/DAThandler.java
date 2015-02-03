@@ -21,21 +21,19 @@ public class DAThandler extends Handler{
 		Infrastructure inf = (Infrastructure) node.getProtocol(protocolID);
 		
 		if ( inf.pit.containsKey(message.getDataName()+","+message.getInfo("ChunkNo"))){
-			List facelist = (List) inf.pit.get(message.getDataName()+","+message.getInfo("ChunkNo"));
+			List facelist = ((FaceInterest) inf.pit.get(message.getDataName()+","+message.getInfo("ChunkNo"))).faceList;
 			for (int i=0; i<facelist.size(); i++){
-				FaceInterest nexthop = (FaceInterest) facelist.get(i);
+				int nexthop = (int) facelist.get(i);
 				try {
-					nexthop.remain--;
 					Message new_mess = message.clone((int)node.getID());
 					((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
-					send(node, Network.get(nexthop.faceID), new_mess, protocolID);
-//					if (nexthop.remain<=0) facelist.remove(i);
+					send(node, Network.get(nexthop), new_mess, protocolID);
 				} catch (CloneNotSupportedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			inf.pit.deleteInvalidEntry(message.getDataName()+","+message.getInfo("ChunkNo"));
+			inf.pit.delete(message.getDataName()+","+message.getInfo("ChunkNo"));
 		}
 		else {
 			if ((int)message.getInfo("RequesterID") != node.getIndex()) return;
@@ -55,16 +53,17 @@ public class DAThandler extends Handler{
 						Statistic.total_time += CommonState.getTime() - 
 								(long)inf.connectionManager.getStartTime(dataName).get(i);
 					}
+//					inf.contentStore.put(dataName, inf.connectionManager.getChunkNum(dataName));
 					inf.connectionManager.deleteEntry(dataName);
 					// generate REG
-					Message reg_mess = new Message("REG",node.getIndex(),dataName);
-					reg_mess.insertInfo("SourceID", node.getIndex());
-					reg_mess.setTTL(Statistic.REG_TTL);
-					List neighbors = inf.neighbors;
-					for (int i=0; i<neighbors.size(); i++){
-						((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
-						send(node, Network.get((int) inf.neighbors.get(i)), reg_mess, protocolID);
-					}
+//					Message reg_mess = new Message("REG",node.getIndex(),dataName);
+//					reg_mess.insertInfo("SourceID", node.getIndex());
+//					reg_mess.setTTL(Statistic.REG_TTL);
+//					List neighbors = inf.neighbors;
+//					for (int i=0; i<neighbors.size(); i++){
+//						((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
+//						send(node, Network.get((int) inf.neighbors.get(i)), reg_mess, protocolID);
+//					}
 					return;
 				}
 			}

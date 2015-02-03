@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import dona.util.Statistic;
+
+import peersim.core.CommonState;
+
 public class PIT {
 
 	/**
@@ -14,7 +18,7 @@ public class PIT {
 	public Map detail;
 	
 	public PIT(){
-		detail = new HashMap<String,List>();
+		detail = new HashMap<String,FaceInterest>();
 	}
 	
 	public boolean containsKey(Object key){
@@ -33,77 +37,38 @@ public class PIT {
 		return detail.entrySet();
 	}
 	
-	public void addFace(String name, int nodeID, int times){
+	public void addFace(String name, int nodeID){
 		if (!detail.containsKey(name)) return;
-		List facelist = (List) detail.get(name);
-		boolean flag = false;
-		for (int i=0; i<facelist.size(); i++){
-			FaceInterest fInt = (FaceInterest) facelist.get(i);
-			if (fInt.faceID == nodeID){
-				flag = true;
-				break;
-			}
-		}
-		if (!flag){
-			FaceInterest fInt = new FaceInterest(nodeID,times);
-			facelist.add(fInt);
-			detail.put(name, facelist);
-			return;
-		}
-		return;
+		FaceInterest fInt = (FaceInterest) detail.get(name);
+		List facelist = fInt.faceList;
+		facelist.add(nodeID);
+		detail.put(name, fInt);
 	}
 	
-	public void addEntry(String name, int nodeID, int times){
+	public void addEntry(String name, int nodeID, long time){
 		if ( !detail.containsKey(name) ){
 			List facelist = new ArrayList();
-			FaceInterest fInt = new FaceInterest(nodeID,times);
-			facelist.add(fInt);
-			detail.put(name, facelist);
+			facelist.add(nodeID);
+			FaceInterest fInt = new FaceInterest(facelist,CommonState.getTime());
+			detail.put(name, fInt);
 			return;
 		}
 	}
-	
-//	public void addItem(String name, int nodeID, int times){
-//		if ( !detail.containsKey(name) ){
-//			List facelist = new ArrayList();
-//			FaceInterest fInt = new FaceInterest(nodeID,times);
-//			facelist.add(fInt);
-//			detail.put(name, facelist);
-//			return;
-//		}
-//		else{
-//			List facelist = (List) detail.get(name);
-//			boolean flag = false;
-//			for (int i=0; i<facelist.size(); i++){
-//				FaceInterest fInt = (FaceInterest) facelist.get(i);
-//				if (fInt.faceID == nodeID){
-//					flag = true;
-//					break;
-//				}
-//			}
-//			if (!flag){
-//				FaceInterest fInt = new FaceInterest(nodeID,times);
-//				facelist.add(fInt);
-//				detail.put(name, facelist);
-//				return;
-//			}
-//			return;
-//		}
-//	}
 	
 	public List getFace(String name){
 		if (!detail.containsKey(name)) return null;
-		List facelist = (List) detail.get(name);
+		List facelist = ((FaceInterest) detail.get(name)).faceList;
 		return facelist;
+	}
+	
+	public void delete(String name){
+		if (detail.containsKey(name)) detail.remove(name);
 	}
 	
 	public void deleteInvalidEntry(String name){
 		if (detail.containsKey(name)) {
-			List facelist = (List) detail.get(name);
-			for (int i=0; i<facelist.size(); i++){
-				if (((FaceInterest)facelist.get(i)).remain <= 0) facelist.remove(i);
-			}
-			if (facelist.size() == 0) detail.remove(name);
+			FaceInterest fInt = (FaceInterest) detail.get(name);
+			if ( CommonState.getTime() - fInt.remain >= Statistic.PIT_PENDING_TIME ) delete(name);
 		}
 	}
 
