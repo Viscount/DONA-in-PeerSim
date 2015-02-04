@@ -4,11 +4,11 @@ import java.util.Map;
 
 public class Statistic {
 	
-	public static final int PIT_PENDING_TIME = 1000;
+	public static final int PIT_PENDING_TIME = 5000;
 	public static final int QUE_TTL = 5;
 	public static final int REG_TTL = 2;
-	public static final int FILE_NUM = 10;
-	public static final boolean LOG = true;
+	public static final int FILE_NUM = 100;
+	public static final boolean LOG = false;
 	
 	public static Map fileChunkNum;
 	public static int query_index;

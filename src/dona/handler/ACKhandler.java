@@ -41,8 +41,9 @@ public class ACKhandler extends Handler{
 			}
 			inf.pit.deleteInvalidEntry(message.getDataName());
 		}
+		
+		if ((int)message.getInfo("RequesterID") != node.getIndex()) return;
 		else {
-			if ((int)message.getInfo("RequesterID") != node.getIndex()) return;
 			// reach the requester
 			if ( Statistic.LOG ) Log.write("Node "+node.getIndex()+" receive source "+ message.getInfo("SourceID")+
 					" for file "+message.getDataName());
