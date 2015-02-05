@@ -14,6 +14,7 @@ public class IndicatorObserver implements Control{
 		System.out.println("Query Complete: " + Statistic.query_complete);
 		System.out.println("Total Time: " + Statistic.total_time);
 		System.out.println("Average Time: " + Statistic.total_time * 1.0 / Statistic.query_complete);
+		System.out.println("Detail Stat: "+Statistic.is.getAverage()+" "+Statistic.is.getStD());
 		return false;
 	}
 

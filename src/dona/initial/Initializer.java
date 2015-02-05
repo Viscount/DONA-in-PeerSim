@@ -16,6 +16,7 @@ import peersim.core.Control;
 import peersim.core.Linkable;
 import peersim.core.Network;
 import peersim.core.Node;
+import peersim.util.IncrementalStats;
 
 public class Initializer implements Control{
 	
@@ -35,6 +36,7 @@ public class Initializer implements Control{
 		Statistic.total_time = 0;
 		Statistic.query_complete = 0;
 		Statistic.fileChunkNum = new HashMap();
+		Statistic.is = new IncrementalStats();
 		for (int i=0; i<Statistic.FILE_NUM; i++){
 //			int chunkNum = CommonState.r.nextInt(4)+1;
 			int chunkNum = 1;

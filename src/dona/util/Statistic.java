@@ -2,6 +2,8 @@ package dona.util;
 
 import java.util.Map;
 
+import peersim.util.IncrementalStats;
+
 public class Statistic {
 	
 	public static final int PIT_PENDING_TIME = 5000;
@@ -14,5 +16,6 @@ public class Statistic {
 	public static int query_index;
 	public static long total_time;
 	public static int query_complete;
+	public static IncrementalStats is;
 
 }

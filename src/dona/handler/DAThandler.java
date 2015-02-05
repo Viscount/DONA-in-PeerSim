@@ -50,8 +50,10 @@ public class DAThandler extends Handler{
 					int query_num = inf.connectionManager.getStartTime(dataName).size();
 					Statistic.query_complete += query_num;
 					for (int i=0; i<query_num; i++){
-						Statistic.total_time += CommonState.getTime() - 
+						long used_time = CommonState.getTime() - 
 								(long)inf.connectionManager.getStartTime(dataName).get(i);
+						Statistic.total_time += used_time;
+						Statistic.is.add(used_time);
 					}
 //					inf.contentStore.put(dataName, inf.connectionManager.getChunkNum(dataName));
 					inf.connectionManager.deleteEntry(dataName);
