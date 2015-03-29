@@ -27,6 +27,7 @@ public class FIB {
 	}
 	
 	public boolean containsSource(String name, int source){
+		if (!detail.containsKey(name)) return false;
 		List facelist = detail.get(name);
 		boolean flag = false;
 		for (int i=0; i<facelist.size(); i++){
@@ -69,7 +70,7 @@ public class FIB {
 	
 	public void deleteEntry(String name){
 		if (detail.containsKey(name)){
-			detail.remove(name, detail.get(name));
+			detail.remove(name);
 		}
 	}
 	
