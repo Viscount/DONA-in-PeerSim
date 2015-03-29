@@ -26,6 +26,19 @@ public class FIB {
 		return detail.containsKey(name);
 	}
 	
+	public boolean containsSource(String name, int source){
+		List facelist = detail.get(name);
+		boolean flag = false;
+		for (int i=0; i<facelist.size(); i++){
+			SourceInfo sInfo = (SourceInfo) facelist.get(i);
+			if (sInfo.sourceID == source){
+				flag = true;
+				break;
+			}
+		}
+		return flag;
+	}
+	
 	public void addItem(String name, int source, int face){
 		if ( !detail.containsKey(name) ){
 			List facelist = new ArrayList();

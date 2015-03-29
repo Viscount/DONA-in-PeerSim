@@ -46,6 +46,10 @@ public class Initializer implements Control{
 			File file = new File("dona.log");
 			if (file.exists()) file.delete();
 		}
+		if ( Statistic.CONN_DETAIL ) {
+			File file = new File("connection.log");
+			if (file.exists()) file.delete();
+		}
 		for (int i=0; i<Network.size(); i++){
 			Infrastructure inf = (Infrastructure) Network.get(i).getProtocol(pid_inf);
 			inf.connectionManager = new ConnectionManager();

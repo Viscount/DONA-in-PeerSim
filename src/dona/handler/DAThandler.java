@@ -54,6 +54,7 @@ public class DAThandler extends Handler{
 								(long)inf.connectionManager.getStartTime(dataName).get(i);
 						Statistic.total_time += used_time;
 						Statistic.is.add(used_time);
+						Statistic.write(used_time);
 					}
 //					inf.contentStore.put(dataName, inf.connectionManager.getChunkNum(dataName));
 					inf.connectionManager.deleteEntry(dataName);
