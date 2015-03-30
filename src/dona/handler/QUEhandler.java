@@ -49,6 +49,7 @@ public class QUEhandler extends Handler{
 						try {
 							Message new_mess;
 							new_mess = message.clone(node.getIndex());
+							new_mess.setTTL(message.getTTL()-1);
 							SourceInfo sInfo= (SourceInfo) facelist.get(i);
 							((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
 							send(node, Network.get(sInfo.faceID), new_mess, protocolID);
