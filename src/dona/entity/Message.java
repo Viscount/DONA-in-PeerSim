@@ -7,62 +7,52 @@ import java.util.Map.Entry;
 
 public class Message implements Cloneable{
 	
-	private String messageType;
-	private int requester;
-	private int dataSize;
-	private String dataName;
-	private int TTL;
-	private Map additionalInfo;
+	private Map detailInfo;
 	
 
 	public Message(String type, int request, String name) {
 		// TODO Auto-generated constructor stub
-		this.messageType = type;
-		this.requester = request;
-		this.dataName = name;
-		this.additionalInfo = new HashMap<String,Object>();
-	}
-	
-	public int getDataSize(){
-		return dataSize;
+		detailInfo.put("Type", type);
+		detailInfo.put("Requester", request);
+		detailInfo.put("Name", name);
 	}
 	
 	public String getMessageType(){
-		return messageType;
+		return (String) detailInfo.get("Type");
 	}
 	
 	public String getDataName(){
-		return dataName;
+		return (String) detailInfo.get("Name");
 	}
 	
 	public int getRequester(){
-		return requester;
+		return (int) detailInfo.get("Requester");
 	}
 	
 	public Object getInfo(String key){
-		return additionalInfo.get(key);
+		return detailInfo.get(key);
 	}
 	
 	public Map getAllInf(){
-		return additionalInfo;
+		return detailInfo;
 	}
 	
 	public void insertInfo(String key, Object value){
-		additionalInfo.put(key, value);
+		detailInfo.put(key, value);
 	}
 	
 	public void setTTL(int ttl){
-		this.TTL = ttl;
+		detailInfo.put("TTL", ttl);
 	}
 	
 	public int getTTL(){
-		return TTL;
+		return (int) detailInfo.get("TTL");
 	}
 	
 	public Message clone(int newRequester) throws CloneNotSupportedException{
 		Message mess = (Message) super.clone();
-		mess.requester = newRequester;
-		mess.additionalInfo.putAll(additionalInfo);
+		mess.detailInfo.putAll(detailInfo);
+		mess.detailInfo.put("Requester", newRequester);
 		return mess;
 	}
 }
