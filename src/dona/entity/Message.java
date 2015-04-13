@@ -1,9 +1,16 @@
 package dona.entity;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.codehaus.jackson.JsonEncoding;
+import org.codehaus.jackson.JsonGenerator;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
 public class Message implements Cloneable{
 	
@@ -12,9 +19,36 @@ public class Message implements Cloneable{
 
 	public Message(String type, int request, String name) {
 		// TODO Auto-generated constructor stub
+		detailInfo = new HashMap();
 		detailInfo.put("Type", type);
 		detailInfo.put("Requester", request);
 		detailInfo.put("Name", name);
+	}
+	
+	public Message(String json){
+		detailInfo = new HashMap();
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			detailInfo = objectMapper.readValue(json, Map.class);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public String convert2Json(){
+		ObjectMapper objectMapper = new ObjectMapper();
+		JsonGenerator jsonGen;
+		String json = null;
+		try {
+			jsonGen = objectMapper.getJsonFactory().createJsonGenerator(System.out, JsonEncoding.UTF8);
+			objectMapper.writeValue(jsonGen, detailInfo);
+			jsonGen.writeString(json);	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
 	}
 	
 	public String getMessageType(){
