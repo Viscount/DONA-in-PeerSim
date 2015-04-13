@@ -32,8 +32,9 @@ public class QUEhandler extends Handler{
 					" for file "+message.getDataName()+ " find source in node "+ node.getIndex());
 //			if ( Statistic.LOG )Log.write(ack_message);
 			
+			String ack_mess = ack_message.convert2Json();
 			((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
-			send(node, Network.get(message.getRequester()), ack_message, protocolID);
+			send(node, Network.get(message.getRequester()), ack_mess, protocolID);
 		}
 		else {
 			inf.pit.deleteInvalidEntry(message.getDataName());
@@ -51,8 +52,9 @@ public class QUEhandler extends Handler{
 							new_mess = message.clone(node.getIndex());
 							new_mess.setTTL(message.getTTL()-1);
 							SourceInfo sInfo= (SourceInfo) facelist.get(i);
+							String new_message = new_mess.convert2Json();
 							((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
-							send(node, Network.get(sInfo.faceID), new_mess, protocolID);
+							send(node, Network.get(sInfo.faceID), new_message, protocolID);
 						} catch (CloneNotSupportedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -67,9 +69,10 @@ public class QUEhandler extends Handler{
 							Message new_mess;
 							new_mess = message.clone(node.getIndex());
 							new_mess.setTTL(message.getTTL()-1);
+							String new_message = new_mess.convert2Json();
 							if ((int)inf.neighbors.get(i) != message.getRequester()){
 								((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
-								send(node, Network.get((int) inf.neighbors.get(i)), new_mess, protocolID);
+								send(node, Network.get((int) inf.neighbors.get(i)), new_message, protocolID);
 							}
 						} catch (CloneNotSupportedException e) {
 							// TODO Auto-generated catch block

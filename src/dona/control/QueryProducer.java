@@ -60,8 +60,9 @@ public class QueryProducer implements Control{
 					List neighbors = inf.neighbors;
 					for (int k=0; k<neighbors.size(); k++){
 						Node node = Network.get(random);
+						String que_message = que_mess.convert2Json();
 						((Transport)node.getProtocol(FastConfig.getTransport(pid_inf))).
-						send(node, Network.get((int) inf.neighbors.get(k)), que_mess, pid_inf);
+						send(node, Network.get((int) inf.neighbors.get(k)), que_message, pid_inf);
 					}
 				}
 			}

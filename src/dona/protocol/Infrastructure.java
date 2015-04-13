@@ -45,7 +45,7 @@ public class Infrastructure extends SingleValueHolder implements EDProtocol{
 	@Override
 	public void processEvent(Node node, int protocolID, Object event) {
 		// TODO Auto-generated method stub
-		Message message = (Message) event;
+		Message message = new Message((String) event);
 		// drop the message with no requester
 		if ( message.getRequester() == -1 ) return;
 		

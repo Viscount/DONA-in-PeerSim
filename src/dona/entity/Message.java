@@ -38,12 +38,9 @@ public class Message implements Cloneable{
 	
 	public String convert2Json(){
 		ObjectMapper objectMapper = new ObjectMapper();
-		JsonGenerator jsonGen;
 		String json = null;
 		try {
-			jsonGen = objectMapper.getJsonFactory().createJsonGenerator(System.out, JsonEncoding.UTF8);
-			objectMapper.writeValue(jsonGen, detailInfo);
-			jsonGen.writeString(json);	
+			json = objectMapper.writeValueAsString(detailInfo);	
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

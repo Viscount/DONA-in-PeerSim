@@ -21,8 +21,9 @@ public class REGhandler extends Handler{
 				reg_mess.setTTL(message.getTTL()-1);
 				for (int i=0; i<inf.neighbors.size(); i++){
 					if ((int)inf.neighbors.get(i) != message.getRequester()){
+						String reg_message = reg_mess.convert2Json();
 						((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
-						send(node, Network.get((int) inf.neighbors.get(i)), reg_mess, protocolID);
+						send(node, Network.get((int) inf.neighbors.get(i)), reg_message, protocolID);
 					}
 				}
 			} catch (CloneNotSupportedException e) {

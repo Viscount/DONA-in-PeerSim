@@ -32,8 +32,9 @@ public class ACKhandler extends Handler{
 				int nexthop = (int) facelist.get(i);
 				try {
 					Message new_mess = message.clone((int)node.getID());
+					String new_message = new_mess.convert2Json();
 					((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
-					send(node, Network.get(nexthop), new_mess, protocolID);
+					send(node, Network.get(nexthop), new_message, protocolID);
 				} catch (CloneNotSupportedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -62,8 +63,9 @@ public class ACKhandler extends Handler{
 						req_message.insertInfo("ChunkNo", nextIndex);
 						req_message.insertInfo("SourceID", message.getInfo("SourceID"));
 						req_message.insertInfo("RequesterID", node.getIndex());
+						String req_mess = req_message.convert2Json();
 						((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
-						send(node, Network.get(message.getRequester()), req_message, protocolID);
+						send(node, Network.get(message.getRequester()), req_mess, protocolID);
 					}
 				}
 			}

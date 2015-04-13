@@ -30,9 +30,9 @@ public class REQhandler extends Handler{
 //					Log.write(dat_message);
 //				}
 				
-				
+				String dat_mess = dat_message.convert2Json();
 				((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
-				send(node, Network.get(message.getRequester()), dat_message, protocolID);
+				send(node, Network.get(message.getRequester()), dat_mess, protocolID);
 			}
 		}
 		else {
@@ -45,8 +45,9 @@ public class REQhandler extends Handler{
 					int nexthop = inf.fib.getNextHop(message.getDataName(), (int)message.getInfo("SourceID"));
 					try {
 						Message req_mess = message.clone(node.getIndex());
+						String req_message = req_mess.convert2Json();
 						((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
-						send(node, Network.get(nexthop), req_mess, protocolID);
+						send(node, Network.get(nexthop), req_message, protocolID);
 					} catch (CloneNotSupportedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

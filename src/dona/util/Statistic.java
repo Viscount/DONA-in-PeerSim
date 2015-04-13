@@ -11,7 +11,7 @@ public class Statistic {
 	public static String filename = "connection.log";
 	
 	public static final int PIT_PENDING_TIME = 5000;
-	public static final int QUE_TTL = 8;
+	public static final int QUE_TTL = 6;
 	public static final int REG_TTL = 2;
 	public static final int FILE_NUM = 100;
 	public static final boolean LOG = false;
