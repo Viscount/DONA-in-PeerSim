@@ -51,6 +51,7 @@ public class QUEhandler extends Handler{
 							Message new_mess;
 							new_mess = message.clone(node.getIndex());
 							new_mess.setTTL(message.getTTL()-1);
+							if ( new_mess.getTTL() <= 0 ) return;
 							SourceInfo sInfo= (SourceInfo) facelist.get(i);
 							String new_message = new_mess.convert2Json();
 							((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
