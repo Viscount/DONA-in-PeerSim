@@ -41,7 +41,7 @@ init.1.inf_protocol inf
 
 init.2 dona.initial.FilePlacement
 init.2.inf_protocol inf
-init.2.init_source 10
+init.2.init_source 5
 
 control.0 dona.control.QueryProducer
 control.0.inf_protocol inf

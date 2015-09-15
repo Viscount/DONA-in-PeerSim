@@ -22,6 +22,7 @@ public class DAThandler extends Handler{
 		
 		if ( inf.pit.containsKey(message.getDataName()+","+message.getInfo("ChunkNo"))){
 			List facelist = ((FaceInterest) inf.pit.get(message.getDataName()+","+message.getInfo("ChunkNo"))).faceList;
+			inf.cache.addData(message.getDataName()+","+message.getInfo("ChunkNo"));
 			for (int i=0; i<facelist.size(); i++){
 				int nexthop = (int) facelist.get(i);
 				try {

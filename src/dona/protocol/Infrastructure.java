@@ -3,10 +3,7 @@ package dona.protocol;
 import java.util.List;
 import java.util.Map;
 
-import dona.entity.ConnectionManager;
-import dona.entity.FIB;
-import dona.entity.Message;
-import dona.entity.PIT;
+import dona.entity.*;
 import dona.handler.Handler;
 import dona.handler.HandlerFactory;
 import dona.util.Log;
@@ -31,6 +28,7 @@ public class Infrastructure extends SingleValueHolder implements EDProtocol{
 	public FIB fib;
 	public Map contentStore;
 	public List neighbors;
+	public Cache cache;
 	
 	public ConnectionManager connectionManager;
 	

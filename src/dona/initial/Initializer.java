@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import dona.entity.Cache;
 import dona.entity.ConnectionManager;
 import dona.entity.FIB;
 import dona.entity.PIT;
@@ -57,6 +58,8 @@ public class Initializer implements Control{
 			inf.fib = new FIB();
 			inf.pit = new PIT();
 			inf.neighbors = new ArrayList();
+			inf.cache = new Cache();
+			inf.cache.setSize(100);
 			
 			Linkable linkable = (Linkable) Network.get(i).getProtocol(linkableID);
 		    	if (linkable.degree() > 0) {
