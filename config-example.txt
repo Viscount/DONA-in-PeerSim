@@ -23,7 +23,7 @@ protocol.inf dona.protocol.Infrastructure
 protocol.inf.linkable lnk
 protocol.inf.transport tr
 protocol.inf.mode Multipath
-protocol.inf.path_num 1
+protocol.inf.path_num 2
 
 protocol.urt UniformRandomTransport 
 protocol.urt.mindelay MINDELAY

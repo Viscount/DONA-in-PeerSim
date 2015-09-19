@@ -17,8 +17,8 @@ public class Cache {
     private List cacheContent;
     private List cacheTime;
     private int size;
-    private static String CACHE_METHOD = "LCECache";
-    private static String REPLACE_METHOD = "LRUReplace";
+    private static String CACHE_METHOD = "NoCache";
+    private static String REPLACE_METHOD = "NoReplace";
 
     private CacheStrategy cacheStrategy;
     private ReplaceStrategy replaceStrategy;

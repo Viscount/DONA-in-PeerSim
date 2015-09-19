@@ -25,10 +25,10 @@ public class REQhandler extends Handler{
 				dat_message.insertInfo("SourceID", (int)node.getID());
 				dat_message.insertInfo("RequesterID", message.getInfo("RequesterID"));
 				
-//				if ( Statistic.LOG ){
-//					Log.write("Source reached, generate DAT.");
+				if ( Statistic.LOG ){
+					Log.write("Source reached, generate DAT.");
 //					Log.write(dat_message);
-//				}
+				}
 				
 				String dat_mess = dat_message.convert2Json();
 				((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
@@ -42,10 +42,10 @@ public class REQhandler extends Handler{
 			dat_message.insertInfo("SourceID", (int)node.getID());
 			dat_message.insertInfo("RequesterID", message.getInfo("RequesterID"));
 
-//				if ( Statistic.LOG ){
-//					Log.write("Source reached, generate DAT.");
-//					Log.write(dat_message);
-//				}
+				if ( Statistic.LOG ){
+					Log.write("Cache reached, generate DAT.");
+					Log.write(dat_message);
+				}
 
 			String dat_mess = dat_message.convert2Json();
 			((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
@@ -59,6 +59,7 @@ public class REQhandler extends Handler{
 				inf.pit.addEntry(message.getDataName()+","+message.getInfo("ChunkNo"), message.getRequester(),CommonState.getTime());
 				if (inf.fib.containsKey(message.getDataName())){
 					int nexthop = inf.fib.getNextHop(message.getDataName(), (int)message.getInfo("SourceID"));
+					if ( nexthop == -1) return;
 					try {
 						Message req_mess = message.clone(node.getIndex());
 						String req_message = req_mess.convert2Json();
