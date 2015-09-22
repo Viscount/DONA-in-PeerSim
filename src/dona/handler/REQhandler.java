@@ -25,11 +25,6 @@ public class REQhandler extends Handler{
 				dat_message.insertInfo("SourceID", (int)node.getID());
 				dat_message.insertInfo("RequesterID", message.getInfo("RequesterID"));
 				
-				if ( Statistic.LOG ){
-					Log.write("Source reached, generate DAT.");
-//					Log.write(dat_message);
-				}
-				
 				String dat_mess = dat_message.convert2Json();
 				((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
 				send(node, Network.get(message.getRequester()), dat_mess, protocolID);
@@ -41,11 +36,6 @@ public class REQhandler extends Handler{
 			dat_message.insertInfo("ChunkNo", message.getInfo("ChunkNo"));
 			dat_message.insertInfo("SourceID", (int)node.getID());
 			dat_message.insertInfo("RequesterID", message.getInfo("RequesterID"));
-
-				if ( Statistic.LOG ){
-					Log.write("Cache reached, generate DAT.");
-					Log.write(dat_message);
-				}
 
 			String dat_mess = dat_message.convert2Json();
 			((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).

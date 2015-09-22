@@ -27,7 +27,7 @@ public class ACKhandler extends Handler{
 		if ( inf.pit.containsKey(message.getDataName()) ){
 			// hit in PIT, forward to all query
 			inf.fib.addItem(message.getDataName(), (int) message.getInfo("SourceID"),message.getRequester());
-			List facelist = ((FaceInterest) inf.pit.get(message.getDataName())).faceList;
+			List facelist = ((FaceInterest) inf.pit.get(message.getDataName())).getFaceList();
 			for (int i=0; i<facelist.size(); i++){
 				int nexthop = (int) facelist.get(i);
 				try {
@@ -46,8 +46,6 @@ public class ACKhandler extends Handler{
 		if ((int)message.getInfo("RequesterID") != node.getIndex()) return;
 		else {
 			// reach the requester
-			if ( Statistic.LOG ) Log.write("Node "+node.getIndex()+" receive source "+ message.getInfo("SourceID")+
-					" for file "+message.getDataName());
 			
 			boolean flag = inf.connectionManager.addSource(message.getDataName(), 
 					(int) message.getInfo("SourceID"), (int) message.getInfo("ChunkNum"));

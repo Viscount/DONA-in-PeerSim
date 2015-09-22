@@ -21,7 +21,7 @@ public class DAThandler extends Handler{
 		Infrastructure inf = (Infrastructure) node.getProtocol(protocolID);
 		
 		if ( inf.pit.containsKey(message.getDataName()+","+message.getInfo("ChunkNo"))){
-			List facelist = ((FaceInterest) inf.pit.get(message.getDataName()+","+message.getInfo("ChunkNo"))).faceList;
+			List facelist = ((FaceInterest) inf.pit.get(message.getDataName()+","+message.getInfo("ChunkNo"))).getFaceList();
 			inf.cache.addData(message.getDataName()+","+message.getInfo("ChunkNo"));
 			for (int i=0; i<facelist.size(); i++){
 				int nexthop = (int) facelist.get(i);
@@ -45,9 +45,6 @@ public class DAThandler extends Handler{
 			if ( nextIndex == -1 ){
 				//  all REQ sent out, check if last DAT
 				if (inf.connectionManager.getChunkNum(dataName) <= inf.connectionManager.getReceivedNum(dataName)){
-					
-					if ( Statistic.LOG ) Log.write("Query "+node.getIndex()+" for file "+message.getDataName()+
-							" Transport completed.");
 					
 					int query_num = inf.connectionManager.getStartTime(dataName).size();
 					Statistic.query_complete += query_num;

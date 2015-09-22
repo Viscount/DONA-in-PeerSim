@@ -28,10 +28,6 @@ public class QUEhandler extends Handler{
 			ack_message.insertInfo("SourceID", (int)node.getID());
 			ack_message.insertInfo("RequesterID", message.getInfo("RequesterID"));
 			
-			if ( Statistic.LOG ) Log.write("Query node "+message.getInfo("RequesterID")+
-					" for file "+message.getDataName()+ " find source in node "+ node.getIndex());
-//			if ( Statistic.LOG )Log.write(ack_message);
-			
 			String ack_mess = ack_message.convert2Json();
 			((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
 			send(node, Network.get(message.getRequester()), ack_mess, protocolID);
@@ -55,7 +51,7 @@ public class QUEhandler extends Handler{
 							SourceInfo sInfo= (SourceInfo) facelist.get(i);
 							String new_message = new_mess.convert2Json();
 							((Transport)node.getProtocol(FastConfig.getTransport(protocolID))).
-							send(node, Network.get(sInfo.faceID), new_message, protocolID);
+							send(node, Network.get(sInfo.getFaceID()), new_message, protocolID);
 						} catch (CloneNotSupportedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
