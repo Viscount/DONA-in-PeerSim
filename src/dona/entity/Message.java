@@ -6,16 +6,13 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.codehaus.jackson.JsonEncoding;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-
 public class Message implements Cloneable{
+
+	private String type;
+	private long requester;
+	private String name;
 	
 	private Map detailInfo;
-	
 
 	public Message(String type, int request, String name) {
 		// TODO Auto-generated constructor stub
@@ -24,29 +21,7 @@ public class Message implements Cloneable{
 		detailInfo.put("Requester", request);
 		detailInfo.put("Name", name);
 	}
-	
-	public Message(String json){
-		detailInfo = new HashMap();
-		ObjectMapper objectMapper = new ObjectMapper();
-		try {
-			detailInfo = objectMapper.readValue(json, Map.class);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public String convert2Json(){
-		ObjectMapper objectMapper = new ObjectMapper();
-		String json = null;
-		try {
-			json = objectMapper.writeValueAsString(detailInfo);	
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return json;
-	}
+
 	
 	public String getMessageType(){
 		return (String) detailInfo.get("Type");

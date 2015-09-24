@@ -31,32 +31,7 @@ public class FilePlacement implements Control{
 	@Override
 	public boolean execute() {
 		// TODO Auto-generated method stub
-		for (int i=0; i<Statistic.FILE_NUM; i++){
-			List pool = new ArrayList();
-			for (int j=0; j<Network.size();j++) pool.add(j);
-			for (int j=0; j<init_source; j++){
-				int random = CommonState.r.nextInt(pool.size());
-				int nodeID = (int) pool.get(random);
-				Infrastructure inf = (Infrastructure) Network.get(nodeID).getProtocol(pid_inf);
-				inf.contentStore.put(Integer.toString(i), Statistic.fileChunkNum.get(Integer.toString(i)));
-				
-				if ( Statistic.LOG ) Log.write("put file "+i+" with ChunkNum "+Statistic.fileChunkNum.get(Integer.toString(i))+" in node "+nodeID);
-				
-				pool.remove(random);
-				
-				// optional, REG for initial resource
-				
-//				Message reg_mess = new Message("REG",nodeID,Integer.toString(i));
-//				reg_mess.insertInfo("SourceID", nodeID);
-//				reg_mess.setTTL(Statistic.REG_TTL);
-//				List neighbors = inf.neighbors;
-//				Node node = Network.get(nodeID);
-//				for (int k=0; k<neighbors.size(); k++){
-//					((Transport)node.getProtocol(FastConfig.getTransport(pid_inf))).
-//					send(node, Network.get((int) inf.neighbors.get(k)), reg_mess, pid_inf);
-//				}
-			}
-		}
+
 		return false;
 	}
 

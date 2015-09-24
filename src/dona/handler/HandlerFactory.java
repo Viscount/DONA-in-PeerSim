@@ -1,25 +1,16 @@
 package dona.handler;
 
+import dona.protocol.Infrastructure;
+
 public class HandlerFactory {
 	
 	public static Handler createHandler(String messageType){
 		Handler handler = null;
-		switch (messageType){
-		case "QUE":
-			handler = new QUEhandler();
-			break;
-		case "ACK":
-			handler = new ACKhandler();
-			break;
-		case "REQ":
-			handler = new REQhandler();
-			break;
-		case "DAT":
-			handler = new DAThandler();
-			break;
-		case "REG":
-			handler = new REGhandler();
-			break;
+		try {
+			Class className = Class.forName("dona.handler." + Infrastructure.mode + messageType + "handler");
+			handler = (Handler)className.newInstance();
+		} catch ( Exception e ){
+			e.printStackTrace();
 		}
 		return handler;
 	}
