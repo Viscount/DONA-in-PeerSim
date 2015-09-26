@@ -11,54 +11,62 @@ public class Message implements Cloneable{
 	private String type;
 	private long requester;
 	private String name;
+	private int TTL;
+	private long size;
 	
 	private Map detailInfo;
 
-	public Message(String type, int request, String name) {
+	public Message(String type, long requester, String name) {
 		// TODO Auto-generated constructor stub
 		detailInfo = new HashMap();
-		detailInfo.put("Type", type);
-		detailInfo.put("Requester", request);
-		detailInfo.put("Name", name);
+		this.setName(name);
+		this.setRequester(requester);
+		this.setType(type);
 	}
 
-	
-	public String getMessageType(){
-		return (String) detailInfo.get("Type");
+	public String getType() {
+		return type;
 	}
-	
-	public String getDataName(){
-		return (String) detailInfo.get("Name");
+
+	public void setType(String type) {
+		this.type = type;
 	}
-	
-	public int getRequester(){
-		return (int) detailInfo.get("Requester");
+
+	public long getRequester() {
+		return requester;
 	}
-	
-	public Object getInfo(String key){
-		return detailInfo.get(key);
+
+	public void setRequester(long requester) {
+		this.requester = requester;
 	}
-	
-	public Map getAllInf(){
-		return detailInfo;
+
+	public String getName() {
+		return name;
 	}
-	
-	public void insertInfo(String key, Object value){
-		detailInfo.put(key, value);
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	
-	public void setTTL(int ttl){
-		detailInfo.put("TTL", ttl);
+
+	public int getTTL() {
+		return TTL;
 	}
-	
-	public int getTTL(){
-		return (int) detailInfo.get("TTL");
+
+	public void setTTL(int TTL) {
+		this.TTL = TTL;
 	}
-	
-	public Message clone(int newRequester) throws CloneNotSupportedException{
+
+	public long getSize() {
+		return size;
+	}
+
+	public void setSize(long size) {
+		this.size = size;
+	}
+
+	public Message clone() throws CloneNotSupportedException{
 		Message mess = (Message) super.clone();
 		mess.detailInfo.putAll(detailInfo);
-		mess.detailInfo.put("Requester", newRequester);
 		return mess;
 	}
 }

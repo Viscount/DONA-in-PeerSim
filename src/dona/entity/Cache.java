@@ -15,7 +15,7 @@ public class Cache {
     private static final String CLASSPATH = "dona.Strategy.";
 
     private List cacheContent;
-    private List cacheTime;
+    private List<Long> cacheTime;
     private int size;
     private static String CACHE_METHOD = "NoCache";
     private static String REPLACE_METHOD = "NoReplace";
@@ -90,8 +90,8 @@ public class Cache {
         long earlyTime = Long.MAX_VALUE;
         int index = -1;
         for (int i=0; i<cacheTime.size(); i++){
-            if ( (long)cacheTime.get(i) < earlyTime ){
-                earlyTime = (long)cacheTime.get(i);
+            if ( cacheTime.get(i) < earlyTime ){
+                earlyTime = cacheTime.get(i);
                 index = i;
             }
         }

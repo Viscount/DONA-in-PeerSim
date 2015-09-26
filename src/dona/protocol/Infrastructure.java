@@ -6,6 +6,7 @@ import java.util.Map;
 import dona.entity.*;
 import dona.handler.Handler;
 import dona.handler.HandlerFactory;
+import dona.util.JsonUtil;
 import dona.util.Log;
 import dona.util.Statistic;
 import peersim.config.Configuration;
@@ -18,17 +19,18 @@ import peersim.vector.SingleValueHolder;
 
 public class Infrastructure extends SingleValueHolder implements EDProtocol{
 	
+	private static final String PAR_PROT_BANDWIDTH = "bandwidth";
 	private static final String PAR_MODE = "mode";
 	private static final String PAR_PATH_NUM = "path_num";
 	
+	public static int pid_bandwidth;
 	public static String mode;
 	public static int path_num;
 	
-	public PIT pit;
-	public FIB fib;
-	public Map contentStore;
-	public List neighbors;
-	public Cache cache;
+	private PIT pit;
+	private FIB fib;
+	private Map contentStore;
+	private Cache cache;
 	
 	public ConnectionManager connectionManager;
 	
@@ -36,6 +38,7 @@ public class Infrastructure extends SingleValueHolder implements EDProtocol{
 	public Infrastructure(String prefix) {
 		// TODO Auto-generated constructor stub
 		super(prefix);
+		pid_bandwidth = Configuration.getPid(prefix+"."+PAR_PROT_BANDWIDTH);
 		mode = Configuration.getString(prefix+"."+PAR_MODE);
 		path_num = Configuration.getInt(prefix+"."+PAR_PATH_NUM);
 	}
@@ -43,11 +46,11 @@ public class Infrastructure extends SingleValueHolder implements EDProtocol{
 	@Override
 	public void processEvent(Node node, int protocolID, Object event) {
 		// TODO Auto-generated method stub
-		Message message = new Message((String) event);
+		Message message = JsonUtil.toObject((String)event,Message.class);
 		// drop the message with no requester
 		if ( message.getRequester() == -1 ) return;
 		
-		Handler handler = HandlerFactory.createHandler(message.getMessageType());
+		Handler handler = HandlerFactory.createHandler(message.getType());
 		handler.handleMessage(node, protocolID, message);
 
 	}
