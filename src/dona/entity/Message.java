@@ -64,6 +64,14 @@ public class Message implements Cloneable{
 		this.size = size;
 	}
 
+	public Object getDetailInfo(String fieldName){
+		return detailInfo.get(fieldName);
+	}
+
+	public void setDetailInfo(String fieldName, Object value){
+		this.detailInfo.put(fieldName,value);
+	}
+
 	public Message clone() throws CloneNotSupportedException{
 		Message mess = (Message) super.clone();
 		mess.detailInfo.putAll(detailInfo);
