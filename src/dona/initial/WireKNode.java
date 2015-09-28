@@ -25,7 +25,7 @@ public class WireKNode extends WireGraph{
 		final int n = g.size();
 		if( n < 2 ) return;
 		if( n <= k ) k=n-1;
-		List nodes = new ArrayList();
+		List<Integer> nodes = new ArrayList();
 		int[] degree = new int[n];
 		for(int i=0; i<n; i++) degree[i] = k;
 		for(int i=0; i<n; i++)

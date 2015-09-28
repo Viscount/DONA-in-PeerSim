@@ -18,9 +18,6 @@ public class ACKhandler extends Handler{
 	@Override
 	public void handleMessage(Node node, int protocolID, Message message) {
 		// TODO Auto-generated method stub
-		
-		Infrastructure inf_source = (Infrastructure) Network.get((int)message.getInfo("RequesterID")).getProtocol(protocolID);
-
 	}
 
 }

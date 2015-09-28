@@ -2,27 +2,27 @@ package dona.entity;
 
 public class SourceInfo {
 	
-	private int sourceID;
-	private int faceID;
+	private long sourceID;
+	private long faceID;
 	
-	public SourceInfo(int SID, int FID){
+	public SourceInfo(long SID, long FID){
 		sourceID = SID;
 		faceID = FID;
 	}
 
-	public int getSourceID() {
+	public long getSourceID() {
 		return sourceID;
 	}
 
-	public void setSourceID(int sourceID) {
+	public void setSourceID(long sourceID) {
 		this.sourceID = sourceID;
 	}
 
-	public int getFaceID() {
+	public long getFaceID() {
 		return faceID;
 	}
 
-	public void setFaceID(int faceID) {
+	public void setFaceID(long faceID) {
 		this.faceID = faceID;
 	}
 }
