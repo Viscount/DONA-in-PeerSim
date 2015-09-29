@@ -16,29 +16,36 @@ public class FIB {
 	/**
 	 * @param args
 	 */
-	public Map<String,List> detail;
+	private Map<String,Map<Long,Long>> detail;
 	
 	public FIB(){
-		detail = new HashMap<String,List>();
+		detail = new HashMap<String,Map<Long,Long>>();
 	}
 
 	public boolean contains(String dataName){
 		return detail.containsKey(dataName);
 	}
 
-	public List find(String dataName){
+	public Map find(String dataName){
 		return detail.get(dataName);
+	}
+
+	public long find(String dataName,long sourceId){
+		return (detail.get(dataName).get(sourceId));
 	}
 
 	public void addEntry(String dataName,long sourceId, long faceId){
 		if (!contains(dataName)){
-			List entryList = new ArrayList();
-			entryList.add(new SourceInfo(sourceId,faceId));
-			detail.put(dataName,entryList);
+			Map entryDetail = new HashMap<Long,Long>();
+			entryDetail.put(sourceId,faceId);
+			detail.put(dataName,entryDetail);
 			return;
 		}
 		else {
-
+			Map entryDetail = detail.get(dataName);
+			if (entryDetail.containsKey(sourceId)) return;
+			else entryDetail.put(sourceId,faceId);
+			detail.put(dataName,entryDetail);
 		}
 	}
 }

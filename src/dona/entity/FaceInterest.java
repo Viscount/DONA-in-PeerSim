@@ -4,20 +4,20 @@ import java.util.List;
 
 public class FaceInterest {
 	
-	private List faceList;
+	private long faceId;
 	private long remain;
 	
-	public FaceInterest(List fID, long remain){
-		faceList = fID;
+	public FaceInterest(long fID, long remain){
+		faceId = fID;
 		this.remain = remain;
 	}
 
-	public List getFaceList() {
-		return faceList;
+	public long getFaceId() {
+		return faceId;
 	}
 
-	public void setFaceList(List faceList) {
-		this.faceList = faceList;
+	public void setFaceId(long fId) {
+		this.faceId = fId;
 	}
 
 	public long getRemain() {
