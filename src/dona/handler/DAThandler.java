@@ -17,9 +17,16 @@ public class DAThandler extends Handler{
 
 	@Override
 	public void handleMessage(Node node, int protocolID, Message message) {
-		// TODO Auto-generated method stub
 		Infrastructure inf = (Infrastructure) node.getProtocol(protocolID);
-
+		String dataName = message.getName();
+		// check if arrive query source
+		if ( message.getRequester() == node.getID() ){
+			// TODO update CM
+		}
+		// check if pit entry exist
+		else if ( inf.getPit().find(dataName) != null ){
+			// TODO forward according to pit entry
+		}
 	}
 
 }

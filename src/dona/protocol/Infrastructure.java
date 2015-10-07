@@ -32,7 +32,7 @@ public class Infrastructure extends SingleValueHolder implements EDProtocol{
 	private Map contentStore;
 	private Cache cache;
 	
-	public ConnectionManager connectionManager;
+	private ConnectionManager connectionManager;
 	
 	
 	public Infrastructure(String prefix) {
@@ -53,5 +53,27 @@ public class Infrastructure extends SingleValueHolder implements EDProtocol{
 		Handler handler = HandlerFactory.createHandler(message.getType());
 		handler.handleMessage(node, protocolID, message);
 
+	}
+
+	// getter and setter
+
+	public PIT getPit() {
+		return pit;
+	}
+
+	public FIB getFib() {
+		return fib;
+	}
+
+	public Map getContentStore() {
+		return contentStore;
+	}
+
+	public Cache getCache() {
+		return cache;
+	}
+
+	public ConnectionManager getConnectionManager() {
+		return connectionManager;
 	}
 }

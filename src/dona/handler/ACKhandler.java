@@ -17,7 +17,16 @@ public class ACKhandler extends Handler{
 
 	@Override
 	public void handleMessage(Node node, int protocolID, Message message) {
-		// TODO Auto-generated method stub
+		Infrastructure inf = (Infrastructure) node.getProtocol(protocolID);
+		String dataName = message.getName();
+		// check if arrive query source
+		if ( message.getRequester() == node.getID() ){
+			// TODO register in CM
+			// TODO generate REQ
+		}
+		// check if pit entry exist
+		else if ( inf.getPit().find(dataName) != null ){
+			// TODO forward according to pit entry
+		}
 	}
-
 }
