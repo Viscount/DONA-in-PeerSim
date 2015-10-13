@@ -1,5 +1,7 @@
 package dona.entity;
 
+import dona.util.Config;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -22,6 +24,7 @@ public class Message implements Cloneable{
 		this.setName(name);
 		this.setRequester(requester);
 		this.setType(type);
+		this.setTTL(Config.QUE_TTL);
 	}
 
 	public String getType() {
