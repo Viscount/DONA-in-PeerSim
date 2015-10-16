@@ -12,6 +12,7 @@ public class Message implements Cloneable{
 
 	private String type;
 	private long requester;
+	private long receiver;
 	private String name;
 	private int TTL;
 	private long size;
@@ -41,6 +42,14 @@ public class Message implements Cloneable{
 
 	public void setRequester(long requester) {
 		this.requester = requester;
+	}
+
+	public long getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(long receiver) {
+		this.receiver = receiver;
 	}
 
 	public String getName() {
