@@ -19,11 +19,12 @@ public class Message implements Cloneable{
 	
 	private Map detailInfo;
 
-	public Message(String type, long requester, String name) {
+	public Message(String type, long requester, long receiver, String name) {
 		// TODO Auto-generated constructor stub
 		detailInfo = new HashMap();
 		this.setName(name);
 		this.setRequester(requester);
+		this.setReceiver(receiver);
 		this.setType(type);
 		this.setTTL(Config.QUE_TTL);
 	}

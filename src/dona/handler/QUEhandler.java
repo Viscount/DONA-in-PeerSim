@@ -22,8 +22,9 @@ public class QUEhandler extends Handler{
 		// check if hit in repo or cache
 		if (( inf.getContentStore().containsKey(dataName) )||( inf.getCache().find(dataName) != -1)){
 			// TODO generate ACK
-			Message ack_message = new Message("ACK",node.getID(),message.getName());
-
+			Message ack_message = new Message("ACK",node.getID(),message.getRequester(),message.getName());
+			((Transport)node.getProtocol(FastConfig.getTransport(Infrastructure.pid_bandwidth))).
+					send(node,node,ack_message,Infrastructure.pid_bandwidth);
 		}
 		// check if hit in pit
 		else if ( inf.getPit().find(dataName) != null ){
